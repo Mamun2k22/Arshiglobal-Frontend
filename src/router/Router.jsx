@@ -9,7 +9,7 @@ import MyProfile from "../components/MyProfile";
 import Order from "../components/Order";
 import CategoryProduct from "../components/CategoryProduct";
 import Signup from "../Auth/Signup";
-import Otp from "../components/OTP";
+import Otp from "../components/Otp";
 import { AdminRoute } from "../hooks/useAdmin";
 import { UserRoute } from "../hooks/userRole";
 import { ShareRoute } from "../hooks/useShareRoute";
