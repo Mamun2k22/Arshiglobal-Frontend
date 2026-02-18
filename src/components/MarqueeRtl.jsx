@@ -1,13 +1,19 @@
 import React from "react";
-import { Sparkles, Shield, Truck, RefreshCw, Award, Headphones } from "lucide-react";
+import {
+  FileCheck2,
+  BriefcaseBusiness,
+  ShieldCheck,
+  MessageCircleMore,
+  Headphones,
+} from "lucide-react";
 
 const FEATURE_ITEMS = [
-  { text: "FREE EXPRESS DELIVERY", icon: Truck, color: "text-emerald-400" },
-  { text: "24/7 PREMIUM SUPPORT", icon: Headphones, color: "text-blue-400" },
-  { text: "100% SATISFACTION GUARANTEE", icon: Award, color: "text-amber-400" },
-  { text: "EXTENDED WARRANTY", icon: Shield, color: "text-violet-400" },
-  { text: "EASY 30-DAY RETURNS", icon: RefreshCw, color: "text-rose-400" },
-  { text: "PREMIUM QUALITY FABRICS", icon: Sparkles, color: "text-cyan-400" },
+  // { text: "VISA PROCESSING", icon: Passport, color: "text-emerald-400" },
+  { text: "HELP IN DOCUMENTATION", icon: FileCheck2, color: "text-blue-400" },
+  { text: "VISA, JOB, TRAVEL AGENCY", icon: BriefcaseBusiness, color: "text-amber-400" },
+  { text: "VISA CONSULTANCY", icon: ShieldCheck, color: "text-violet-400" },
+  { text: "FAST COMMUNICATION", icon: MessageCircleMore, color: "text-rose-400" },
+  { text: "TRUSTED SUPPORT", icon: Headphones, color: "text-cyan-400" },
 ];
 
 export default function PremiumMarquee() {
@@ -17,40 +23,49 @@ export default function PremiumMarquee() {
       <div className="absolute inset-0 overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-r from-transparent via-gray-900/20 to-transparent animate-[shimmer_3s_infinite]" />
       </div>
-      
+
       <div className="relative">
-        {/* Edge fading - improved for seamless look */}
-        <div className="pointer-events-none absolute inset-y-0 left-0 w-24 bg-gradient-to-r from-gray-900 via-gray-900/95 to-transparent z-10" />
-        <div className="pointer-events-none absolute inset-y-0 right-0 w-24 bg-gradient-to-l from-gray-900 via-gray-900/95 to-transparent z-10" />
-        
+        {/* Edge fading */}
+        <div className="pointer-events-none absolute inset-y-0 left-0 w-20 md:w-24 bg-gradient-to-r from-gray-900 via-gray-900/95 to-transparent z-10" />
+        <div className="pointer-events-none absolute inset-y-0 right-0 w-20 md:w-24 bg-gradient-to-l from-gray-900 via-gray-900/95 to-transparent z-10" />
+
         {/* Main marquee content */}
-        <div className="flex h-12 md:h-14 items-center justify-center">
+        <div className="flex h-12 md:h-16 items-center">
           <div className="relative w-full overflow-hidden">
             <div className="flex animate-marquee whitespace-nowrap">
               {[...FEATURE_ITEMS, ...FEATURE_ITEMS].map((item, idx) => (
                 <div
                   key={idx}
-                  className="mx-4 md:mx-6 flex items-center gap-3 group cursor-default transition-all duration-300 hover:scale-105"
+                  className="mx-4 md:mx-6 inline-flex items-center gap-2.5 group cursor-default transition-transform duration-300 hover:scale-[1.04]"
                 >
-                  <item.icon 
-                    className={`w-4 h-4 ${item.color} transition-transform duration-300 group-hover:rotate-12`} 
+                  <item.icon
+                    className={`w-[18px] h-[18px] md:w-5 md:h-5 ${item.color} opacity-90 transition-transform duration-300 group-hover:rotate-6`}
+                    strokeWidth={2.2}
                   />
-                  <span className="text-xs md:text-sm font-medium text-gray-200 tracking-wider whitespace-nowrap">
+
+                  <span className="text-base md:text-xl font-semibold text-gray-200 tracking-wider whitespace-nowrap">
                     {item.text}
                   </span>
-                  
-                  {/* Animated separator */}
-                  <div className="h-4 w-px bg-gradient-to-b from-transparent via-gray-600 to-transparent mx-1 group-last:hidden" />
+
+                  {/* separator */}
+                  <div className="h-4 w-px bg-gradient-to-b from-transparent via-gray-600 to-transparent mx-1" />
                 </div>
               ))}
             </div>
           </div>
         </div>
       </div>
+
+      {/* shimmer keyframes (if you don't already have it globally) */}
+      <style>{`
+        @keyframes shimmer {
+          0% { transform: translateX(-60%); }
+          100% { transform: translateX(60%); }
+        }
+      `}</style>
     </div>
   );
 }
-
 
 
 

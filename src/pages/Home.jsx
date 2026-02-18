@@ -5,6 +5,13 @@ import Card from "../components/Card";
 import Badge from "../components/Badge";
 import { Link } from "react-router-dom";
 import ProcessSection from "../components/sections/ProcessSection";
+import Hero from "../components/Hero";
+import { Stars } from "lucide-react";
+import StatsSection from "../components/StatsSection";
+import PremiumMarquee from "../components/MarqueeRtl";
+import WhyChooseUs from "../components/WhyChooseUs";
+import AboutSection from "../components/AboutSection";
+import AboutShowcaseSection from "../components/AboutShowcaseSection";
 
 export default function Home() {
   const [services, setServices] = useState([]);
@@ -106,126 +113,8 @@ export default function Home() {
 
   return (
     <div>
-      {/* Hero */}
-      <section className="bg-gradient-to-br from-slate-900 via-slate-800 to-emerald-900 text-white relative overflow-hidden">
-        {/* Background Pattern */}
-        <div className="absolute inset-0 opacity-10">
-          <div className="absolute top-0 left-0 w-96 h-96 bg-emerald-500 rounded-full filter blur-3xl"></div>
-          <div className="absolute bottom-0 right-0 w-96 h-96 bg-blue-500 rounded-full filter blur-3xl"></div>
-        </div>
-        
-        <div className="mx-auto max-w-7xl px-4 py-16 md:py-28 relative z-10">
-          <div className="grid md:grid-cols-2 gap-10 items-center">
-            <div>
-              <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm rounded-full px-4 py-2">
-                <span className="w-2 h-2 bg-emerald-400 rounded-full animate-pulse"></span>
-                <span className="text-sm">🌍 Overseas Opportunities</span>
-              </div>
-              
-              <h1 className="mt-6 text-4xl md:text-5xl lg:text-6xl font-extrabold leading-tight">
-                Find overseas jobs with{" "}
-                <span className="text-emerald-400">guided documentation</span>{" "}
-                & processing
-              </h1>
-              
-              <div className="mt-6 flex items-center gap-4 text-lg">
-                <div className="flex items-center gap-2">
-                  <span className="text-emerald-400">✓</span>
-                  <span>Counseling</span>
-                </div>
-                <div className="w-1 h-1 bg-white/40 rounded-full"></div>
-                <div className="flex items-center gap-2">
-                  <span className="text-emerald-400">✓</span>
-                  <span>Documentation</span>
-                </div>
-                <div className="w-1 h-1 bg-white/40 rounded-full"></div>
-                <div className="flex items-center gap-2">
-                  <span className="text-emerald-400">✓</span>
-                  <span>Submission</span>
-                </div>
-                <div className="w-1 h-1 bg-white/40 rounded-full"></div>
-                <div className="flex items-center gap-2">
-                  <span className="text-emerald-400">✓</span>
-                  <span>Result</span>
-                </div>
-              </div>
-              
-              <p className="mt-4 text-slate-200 text-lg">
-                Start your journey today with our trusted overseas job processing support.
-              </p>
-              
-              <div className="mt-8 flex flex-wrap gap-4">
-                <Link
-                  to="/jobs"
-                  className="px-6 py-3 rounded-xl bg-emerald-600 text-white font-semibold hover:bg-emerald-700 transition transform hover:scale-105 shadow-lg shadow-emerald-600/30"
-                >
-                  🔍 Browse Jobs
-                </Link>
-                <Link
-                  to="/contact"
-                  className="px-6 py-3 rounded-xl bg-white/10 backdrop-blur-sm text-white font-semibold hover:bg-white/20 transition border border-white/20"
-                >
-                  📞 Contact Us
-                </Link>
-              </div>
-
-              {/* Trust Indicators */}
-              <div className="mt-8 flex items-center gap-6">
-                <div className="flex -space-x-2">
-                  {[1,2,3,4].map((i) => (
-                    <div key={i} className="w-8 h-8 rounded-full bg-emerald-500/20 border-2 border-white/20 flex items-center justify-center text-xs">
-                      ✓
-                    </div>
-                  ))}
-                </div>
-                <div className="text-sm text-slate-300">
-                  <span className="font-bold text-white">500+</span> successful placements
-                </div>
-                <div className="text-sm text-slate-300">
-                  <span className="font-bold text-white">8+</span> years experience
-                </div>
-              </div>
-            </div>
-            
-            <div className="rounded-3xl border border-white/10 bg-white/5 backdrop-blur-sm p-6">
-              <div className="grid grid-cols-2 gap-4">
-                {[
-                  { icon: "🔄", title: "Transparent Process", desc: "Step-by-step guidance" },
-                  { icon: "🤝", title: "Trusted Support", desc: "Dedicated help" },
-                  { icon: "⚡", title: "Fast Communication", desc: "WhatsApp support" },
-                  { icon: "📋", title: "Document Check", desc: "Reduce mistakes" },
-                ].map(({ icon, title, desc }) => (
-                  <div
-                    key={title}
-                    className="rounded-2xl bg-white/5 border border-white/10 p-4 hover:bg-white/10 transition"
-                  >
-                    <div className="text-2xl mb-2">{icon}</div>
-                    <div className="font-semibold">{title}</div>
-                    <div className="text-sm text-slate-300 mt-1">{desc}</div>
-                  </div>
-                ))}
-              </div>
-
-              {/* Quick Stats */}
-              <div className="mt-6 pt-6 border-t border-white/10 grid grid-cols-3 gap-4 text-center">
-                <div>
-                  <div className="text-2xl font-bold text-emerald-400">20+</div>
-                  <div className="text-xs text-slate-400">Countries</div>
-                </div>
-                <div>
-                  <div className="text-2xl font-bold text-emerald-400">50+</div>
-                  <div className="text-xs text-slate-400">Partners</div>
-                </div>
-                <div>
-                  <div className="text-2xl font-bold text-emerald-400">24/7</div>
-                  <div className="text-xs text-slate-400">Support</div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
+      <Hero />
+      <PremiumMarquee />
       {/* Services */}
       <Section
         title="Services"
@@ -250,7 +139,9 @@ export default function Home() {
           ))}
         </div>
       </Section>
-<ProcessSection />
+      <AboutSection />
+      {/* <AboutShowcaseSection /> */}
+      <ProcessSection />
       {/* Featured Jobs */}
       <Section
         title="Latest Jobs"
@@ -292,8 +183,9 @@ export default function Home() {
         </div>
       </Section>
 
-
+      <StatsSection />
       {/* FAQ */}
+      <WhyChooseUs />
       <Section title="FAQ" subtitle="Common questions from clients.">
         <FaqAccordion items={faqs} />
       </Section>

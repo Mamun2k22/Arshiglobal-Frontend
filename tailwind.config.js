@@ -1,51 +1,47 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  content: [
-    "./index.html",
-    "./src/**/*.{js,ts,jsx,tsx}",
-  ],
+  content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
     extend: {
+      // ✅ custom animation here
+      animation: {
+        "spin-slow": "spin 14s linear infinite",
+      },
+
+      fontFamily: {
+        poppins: ["Poppins", "sans-serif"],
+        roboto: ["Roboto", "sans-serif"],
+        quicksand: ["Quicksand", "sans-serif"],
+        arneFreytag: ["Arne Freytag", "sans-serif"],
+        omens: ["Omens", "sans-serif"],
+        lato: ["Lato", "sans-serif"],
+        manrope: ["Manrope", "sans-serif"],
+      },
+
+      // ✅ if you want custom brand colors, keep them SOLID (not gradient)
       colors: {
         primary: {
-          DEFAULT: 'linear-gradient(to right, #D425FE, #7E15FC)', // primary gradient color
+          DEFAULT: "#7E15FC",
         },
         secondary: {
-          DEFAULT: 'linear-gradient(to right, #3B82F6, #1D4ED8)', // secondary gradient color
+          DEFAULT: "#1D4ED8",
         },
       },
-      fontFamily: {
-        poppins: ['Poppins', 'sans-serif'],
-        roboto: ['Roboto', 'sans-serif'], 
-        quicksand: ['Quicksand', 'sans-serif'],
-        arneFreytag: ['Arne Freytag', 'sans-serif'],
-        omens: ['Omens', 'sans-serif'],
-        lato: ['Lato', 'sans-serif'],
-        manrope: ['Manrope', 'sans-serif'],
-      },
     },
-    // All default Tailwind screen sizes along with custom breakpoints
+
+    // (optional) screens default রাখলেও হয়; তোমার custom লাগলে রাখো
     screens: {
-      'sm': '640px',
-      // => @media (min-width: 640px) { ... }
+      sm: "640px",
+      md: "768px",
+      lg: "1024px",
+      xl: "1280px",
+      "2xl": "1536px",
 
-      'md': '768px',
-      // => @media (min-width: 768px) { ... }
-
-      'lg': '1024px',
-      // => @media (min-width: 1024px) { ... }
-
-      'xl': '1280px',
-      // => @media (min-width: 1280px) { ... }
-
-      '2xl': '1536px',
-      // => @media (min-width: 1536px) { ... }
-
-      // Custom screen sizes
-      'tablet': '640px', 
-      'laptop': '1024px', 
-      'desktop': '1280px',
+      // Custom aliases (optional)
+      tablet: "640px",
+      laptop: "1024px",
+      desktop: "1280px",
     },
   },
   plugins: [require("tailgrids/plugin")],
-}
+};

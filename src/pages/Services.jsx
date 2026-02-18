@@ -62,7 +62,7 @@ export default function Services() {
     <div>
       {/* Hero */}
       <section className="bg-slate-900 text-white">
-        <div className="mx-auto max-w-7xl px-4 py-14 md:py-16 mt-2 md:mt-10">
+        <div className="mx-auto max-w-7xl px-4 py-14 md:py-16 mt-8 md:mt-10">
           <div className="max-w-2xl">
             <Badge>Our Services</Badge>
             <h1 className="mt-4 text-3xl md:text-4xl font-extrabold leading-tight">
