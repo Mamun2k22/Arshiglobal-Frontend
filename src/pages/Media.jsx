@@ -75,7 +75,7 @@ export default function Media() {
             <p className="mt-1 text-slate-600">Watch step-by-step guides and updates.</p>
 
             {videos.length ? (
-              <div className="mt-5 grid lg:grid-cols-2 gap-5">
+              <div className="mt-5 grid lg:grid-cols-3 gap-5">
                 {videos.map((v) => {
                   const embed = getYouTubeEmbed(v.youtubeUrl);
                   return (

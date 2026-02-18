@@ -50,7 +50,7 @@ const Toggle = ({ checked, onChange }) => (
 );
 
 async function uploadToImgbb(file) {
-  const key = import.meta.env.VITE_IMAGE_API_KEY || import.meta.env.IMAGE_API_KEY;
+  const key = import.meta.env.VITE_IMAGE_API_KEY;
   if (!key) throw new Error("Missing IMGBB key. Set VITE_IMAGE_API_KEY in .env");
 
   const fd = new FormData();
@@ -63,8 +63,9 @@ async function uploadToImgbb(file) {
 
   const json = await res.json();
   if (!res.ok || !json?.success) throw new Error(json?.error?.message || "Upload failed");
-  return json.data.url; // direct url
+  return json.data.url;
 }
+
 
 export default function ServiceFormModal({ open, onClose, initial, onSubmit }) {
   const isEdit = !!initial?._id;
@@ -87,11 +88,22 @@ export default function ServiceFormModal({ open, onClose, initial, onSubmit }) {
     });
   }, [open, initial]);
 
+  // ✅ ESC close
   useEffect(() => {
     const onEsc = (e) => e.key === "Escape" && onClose?.();
     if (open) window.addEventListener("keydown", onEsc);
     return () => window.removeEventListener("keydown", onEsc);
   }, [open, onClose]);
+
+  // ✅ Body scroll lock when modal open
+  useEffect(() => {
+    if (!open) return;
+    const prev = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.body.style.overflow = prev || "";
+    };
+  }, [open]);
 
   const setField = (k, v) => setForm((p) => ({ ...p, [k]: v }));
 
@@ -142,151 +154,172 @@ export default function ServiceFormModal({ open, onClose, initial, onSubmit }) {
 
   return (
     <div className="fixed inset-0 z-[999]">
+      {/* overlay */}
       <div onClick={onClose} className="absolute inset-0 bg-black/50" />
 
-      <div className="absolute left-1/2 top-1/2 w-[92vw] max-w-2xl -translate-x-1/2 -translate-y-1/2 rounded-2xl bg-white shadow-2xl">
-        <div className="p-5 border-b flex items-start justify-between gap-3">
-          <div>
-            <div className="text-lg font-extrabold text-slate-900">
-              {isEdit ? "Edit Service" : "Add New Service"}
+      {/* ✅ Center wrapper + safe padding */}
+      <div className="absolute inset-0 flex items-center justify-center p-3 sm:p-6">
+        {/* ✅ Modal box with max height + flex column */}
+        <div className="w-full max-w-2xl max-h-[92vh] rounded-2xl bg-white shadow-2xl flex flex-col overflow-hidden">
+          {/* header (fixed) */}
+          <div className="p-5 border-b flex items-start justify-between gap-3 shrink-0">
+            <div>
+              <div className="text-lg font-extrabold text-slate-900">
+                {isEdit ? "Edit Service" : "Add New Service"}
+              </div>
+              <div className="text-sm text-slate-600 mt-1">
+                Title, details, image, order and visibility.
+              </div>
             </div>
-            <div className="text-sm text-slate-600 mt-1">
-              Title, details, image, order and visibility.
-            </div>
-          </div>
-          <button onClick={onClose} className="rounded-xl border px-3 py-1.5 text-sm font-semibold hover:bg-slate-50">
-            Close
-          </button>
-        </div>
 
-        <div className="p-5 space-y-4">
-          {err ? (
-            <div className="rounded-2xl border border-rose-200 bg-rose-50 p-4 text-rose-800">
-              <div className="font-bold">Fix required</div>
-              <div className="text-sm mt-1">{err}</div>
-            </div>
-          ) : null}
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <label className="block">
-              <div className="text-sm font-semibold text-slate-700">Title *</div>
-              <div className="mt-1">
-                <Input value={form.title} onChange={(e) => setField("title", e.target.value)} placeholder="Europe Job Visa" />
-              </div>
-            </label>
-
-            <label className="block">
-              <div className="text-sm font-semibold text-slate-700">Order</div>
-              <div className="mt-1">
-                <Input
-                  type="number"
-                  min={1}
-                  value={form.order}
-                  onChange={(e) => setField("order", e.target.value)}
-                />
-              </div>
-              <div className="mt-1 text-xs text-slate-500">Lower order shows first.</div>
-            </label>
-
-            <label className="block md:col-span-2">
-              <div className="text-sm font-semibold text-slate-700">Short Description *</div>
-              <div className="mt-1">
-                <Textarea
-                  value={form.shortDescription}
-                  onChange={(e) => setField("shortDescription", e.target.value)}
-                  placeholder="Schengen/Europe job visa processing support"
-                />
-              </div>
-            </label>
-
-            <label className="block md:col-span-2">
-              <div className="text-sm font-semibold text-slate-700">Full Description</div>
-              <div className="mt-1">
-                <Textarea
-                  value={form.description}
-                  onChange={(e) => setField("description", e.target.value)}
-                  placeholder="We guide you from counseling to documentation and submission..."
-                  className="min-h-[140px]"
-                />
-              </div>
-            </label>
+            <button
+              onClick={onClose}
+              className="rounded-xl border px-3 py-1.5 text-sm font-semibold hover:bg-slate-50"
+            >
+              Close
+            </button>
           </div>
 
-          {/* Image */}
-          <div className="rounded-2xl border p-4">
-            <div className="flex items-center justify-between gap-4">
-              <div>
-                <div className="text-sm font-semibold text-slate-700">Image</div>
-                <div className="text-xs text-slate-500 mt-1">Upload to imgbb and save URL.</div>
+          {/* ✅ body scroll */}
+          <div className="p-5 space-y-4 overflow-y-auto">
+            {err ? (
+              <div className="rounded-2xl border border-rose-200 bg-rose-50 p-4 text-rose-800">
+                <div className="font-bold">Fix required</div>
+                <div className="text-sm mt-1">{err}</div>
               </div>
+            ) : null}
 
-              <label className="inline-flex cursor-pointer items-center gap-2 rounded-xl bg-slate-900 px-4 py-2 text-white text-sm font-bold hover:bg-slate-800">
-                {uploading ? "Uploading..." : "Upload Image"}
-                <input
-                  type="file"
-                  accept="image/*"
-                  className="hidden"
-                  onChange={(e) => pickFile(e.target.files?.[0])}
-                  disabled={uploading}
-                />
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <label className="block">
+                <div className="text-sm font-semibold text-slate-700">Title *</div>
+                <div className="mt-1">
+                  <Input
+                    value={form.title}
+                    onChange={(e) => setField("title", e.target.value)}
+                    placeholder="Europe Job Visa"
+                  />
+                </div>
+              </label>
+
+              <label className="block">
+                <div className="text-sm font-semibold text-slate-700">Order</div>
+                <div className="mt-1">
+                  <Input
+                    type="number"
+                    min={1}
+                    value={form.order}
+                    onChange={(e) => setField("order", e.target.value)}
+                  />
+                </div>
+                <div className="mt-1 text-xs text-slate-500">Lower order shows first.</div>
+              </label>
+
+              <label className="block md:col-span-2">
+                <div className="text-sm font-semibold text-slate-700">Short Description *</div>
+                <div className="mt-1">
+                  <Textarea
+                    value={form.shortDescription}
+                    onChange={(e) => setField("shortDescription", e.target.value)}
+                    placeholder="Schengen/Europe job visa processing support"
+                    className="min-h-[90px]"
+                  />
+                </div>
+              </label>
+
+              <label className="block md:col-span-2">
+                <div className="text-sm font-semibold text-slate-700">Full Description</div>
+                <div className="mt-1">
+                  <Textarea
+                    value={form.description}
+                    onChange={(e) => setField("description", e.target.value)}
+                    placeholder="We guide you from counseling to documentation and submission..."
+                    className="min-h-[140px]"
+                  />
+                </div>
               </label>
             </div>
 
-            <div className="mt-4 grid grid-cols-1 md:grid-cols-2 gap-4 items-start">
-              <div className="rounded-xl border bg-slate-50 p-3">
-                <div className="text-xs font-bold text-slate-500 mb-2">Image URL</div>
-                <Input
-                  value={form.image}
-                  onChange={(e) => setField("image", e.target.value)}
-                  placeholder="https://i.ibb.co/....jpg"
-                />
-              </div>
+            {/* Image */}
+            <div className="rounded-2xl border p-4">
+              <div className="flex items-center justify-between gap-4">
+                <div>
+                  <div className="text-sm font-semibold text-slate-700">Image</div>
+                  <div className="text-xs text-slate-500 mt-1">Upload to imgbb and save URL.</div>
+                </div>
 
-              <div className="rounded-xl border bg-white p-3">
-                <div className="text-xs font-bold text-slate-500 mb-2">Preview</div>
-                {form.image ? (
-                  <img
-                    src={form.image}
-                    alt="preview"
-                    className="h-28 w-full object-cover rounded-xl border"
+                <label className="inline-flex cursor-pointer items-center gap-2 rounded-xl bg-slate-900 px-4 py-2 text-white text-sm font-bold hover:bg-slate-800">
+                  {uploading ? "Uploading..." : "Upload Image"}
+                  <input
+                    type="file"
+                    accept="image/*"
+                    className="hidden"
+                    onChange={(e) => pickFile(e.target.files?.[0])}
+                    disabled={uploading}
                   />
-                ) : (
-                  <div className="h-28 rounded-xl grid place-items-center text-slate-400 border bg-slate-50">
-                    No image
-                  </div>
-                )}
+                </label>
+              </div>
+
+              <div className="mt-4 grid grid-cols-1 md:grid-cols-2 gap-4 items-start">
+                <div className="rounded-xl border bg-slate-50 p-3">
+                  <div className="text-xs font-bold text-slate-500 mb-2">Image URL</div>
+                  <Input
+                    value={form.image}
+                    onChange={(e) => setField("image", e.target.value)}
+                    placeholder="https://i.ibb.co/....jpg"
+                  />
+                </div>
+
+                <div className="rounded-xl border bg-white p-3">
+                  <div className="text-xs font-bold text-slate-500 mb-2">Preview</div>
+                  {form.image ? (
+                    <img
+                      src={form.image}
+                      alt="preview"
+                      className="h-28 w-full object-cover rounded-xl border"
+                    />
+                  ) : (
+                    <div className="h-28 rounded-xl grid place-items-center text-slate-400 border bg-slate-50">
+                      No image
+                    </div>
+                  )}
+                </div>
+              </div>
+            </div>
+
+            {/* Active */}
+            <div className="flex items-center justify-between rounded-2xl border p-4">
+              <div>
+                <div className="text-sm font-semibold text-slate-700">Active</div>
+                <div className="text-xs text-slate-500 mt-1">
+                  If inactive, hidden from public pages.
+                </div>
+              </div>
+              <div className="flex items-center gap-3">
+                <Toggle checked={!!form.isActive} onChange={(v) => setField("isActive", v)} />
+                <div className="text-sm font-semibold">
+                  {form.isActive ? "Active" : "Inactive"}
+                </div>
               </div>
             </div>
           </div>
 
-          {/* Active */}
-          <div className="flex items-center justify-between rounded-2xl border p-4">
-            <div>
-              <div className="text-sm font-semibold text-slate-700">Active</div>
-              <div className="text-xs text-slate-500 mt-1">If inactive, hidden from public pages.</div>
-            </div>
-            <div className="flex items-center gap-3">
-              <Toggle checked={!!form.isActive} onChange={(v) => setField("isActive", v)} />
-              <div className="text-sm font-semibold">{form.isActive ? "Active" : "Inactive"}</div>
-            </div>
+          {/* footer (fixed) */}
+          <div className="p-5 border-t flex items-center justify-end gap-3 shrink-0">
+            <button
+              onClick={onClose}
+              className="rounded-xl border px-4 py-2 text-sm font-semibold hover:bg-slate-50"
+              disabled={saving}
+            >
+              Cancel
+            </button>
+            <button
+              onClick={submit}
+              className="rounded-xl bg-emerald-600 px-5 py-2 text-sm font-extrabold text-white hover:bg-emerald-700 disabled:opacity-60"
+              disabled={saving || uploading}
+            >
+              {saving ? "Saving..." : isEdit ? "Save Changes" : "Create Service"}
+            </button>
           </div>
-        </div>
-
-        <div className="p-5 border-t flex items-center justify-end gap-3">
-          <button
-            onClick={onClose}
-            className="rounded-xl border px-4 py-2 text-sm font-semibold hover:bg-slate-50"
-            disabled={saving}
-          >
-            Cancel
-          </button>
-          <button
-            onClick={submit}
-            className="rounded-xl bg-emerald-600 px-5 py-2 text-sm font-extrabold text-white hover:bg-emerald-700 disabled:opacity-60"
-            disabled={saving || uploading}
-          >
-            {saving ? "Saving..." : isEdit ? "Save Changes" : "Create Service"}
-          </button>
         </div>
       </div>
     </div>

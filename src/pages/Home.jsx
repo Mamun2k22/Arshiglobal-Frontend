@@ -12,6 +12,7 @@ import PremiumMarquee from "../components/MarqueeRtl";
 import WhyChooseUs from "../components/WhyChooseUs";
 import AboutSection from "../components/AboutSection";
 import AboutShowcaseSection from "../components/AboutShowcaseSection";
+import ServicesThreeCards from "../components/ui/ServicesThreeCards";
 
 export default function Home() {
   const [services, setServices] = useState([]);
@@ -115,6 +116,7 @@ export default function Home() {
     <div>
       <Hero />
       <PremiumMarquee />
+       <ServicesThreeCards />
       {/* Services */}
       <Section
         title="Services"
@@ -139,6 +141,7 @@ export default function Home() {
           ))}
         </div>
       </Section>
+     
       <AboutSection />
       {/* <AboutShowcaseSection /> */}
       <ProcessSection />

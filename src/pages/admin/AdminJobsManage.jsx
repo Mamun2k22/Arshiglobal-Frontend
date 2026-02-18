@@ -105,24 +105,57 @@ function PillInput({ label, items, setItems, placeholder }) {
 }
 
 function Modal({ open, title, children, onClose }) {
+  // ✅ body scroll lock (design only)
+  useEffect(() => {
+    if (!open) return;
+    const prev = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.body.style.overflow = prev || "";
+    };
+  }, [open]);
+
+  // ✅ ESC close (optional but UI-friendly; remove if you want)
+  useEffect(() => {
+    if (!open) return;
+    const onEsc = (e) => e.key === "Escape" && onClose?.();
+    window.addEventListener("keydown", onEsc);
+    return () => window.removeEventListener("keydown", onEsc);
+  }, [open, onClose]);
+
   if (!open) return null;
+
   return (
-    <div className="fixed inset-0 z-[999] bg-black/40 flex items-center justify-center p-4">
-      <div className="w-full max-w-2xl rounded-2xl bg-white shadow-xl border">
-        <div className="p-5 border-b flex items-center justify-between">
-          <div className="text-lg font-bold">{title}</div>
-          <button
-            onClick={onClose}
-            className="rounded-xl border px-3 py-1.5 font-semibold hover:bg-slate-50"
-          >
-            Close
-          </button>
+    <div className="fixed inset-0 z-[999]">
+      {/* overlay */}
+      <div className="absolute inset-0 bg-black/40" onClick={onClose} />
+
+      {/* center wrapper */}
+      <div className="absolute inset-0 flex items-center justify-center p-3 sm:p-4">
+        {/* modal box */}
+        <div className="w-full max-w-2xl rounded-2xl bg-white shadow-xl border overflow-hidden max-h-[92vh] flex flex-col">
+          {/* header (fixed) */}
+          <div className="p-5 border-b flex items-center justify-between shrink-0">
+            <div className="text-lg font-bold">{title}</div>
+            <button
+              onClick={onClose}
+              className="rounded-xl border px-3 py-1.5 font-semibold hover:bg-slate-50"
+              type="button"
+            >
+              Close
+            </button>
+          </div>
+
+          {/* ✅ body scroll */}
+          <div className="p-5 overflow-y-auto">
+            {children}
+          </div>
         </div>
-        <div className="p-5">{children}</div>
       </div>
     </div>
   );
 }
+
 
 export default function AdminJobsManage() {
   const [toast, setToast] = useState({ type: "", msg: "" });
@@ -319,7 +352,7 @@ export default function AdminJobsManage() {
         </div>
         <button
           onClick={openCreate}
-          className="rounded-xl bg-emerald-600 px-5 py-3 text-white font-semibold hover:bg-emerald-700"
+          className="rounded-3xl bg-emerald-600 px-3 py-1.5 text-white font-medium hover:bg-emerald-700"
         >
           + Add Job
         </button>
@@ -349,7 +382,7 @@ export default function AdminJobsManage() {
           <div className="flex items-end gap-3">
             <button
               onClick={() => setPagination((s) => ({ ...s, page: 1 }))}
-              className="w-full rounded-xl bg-slate-900 px-5 py-3 text-white font-semibold hover:bg-slate-800"
+              className="w-full rounded-xl bg-slate-900 px-5 py-2 text-white font-medium hover:bg-slate-800"
             >
               Apply
             </button>
@@ -358,7 +391,7 @@ export default function AdminJobsManage() {
                 setQ({ search: "", country: "", category: "" });
                 setPagination((s) => ({ ...s, page: 1 }));
               }}
-              className="w-full rounded-xl border px-5 py-3 font-semibold hover:bg-slate-50"
+              className="w-full rounded-xl border px-5 py-2 font-medium hover:bg-slate-50"
             >
               Reset
             </button>
@@ -420,19 +453,19 @@ export default function AdminJobsManage() {
                   <div className="flex flex-wrap gap-2">
                     <button
                       onClick={() => openEdit(j)}
-                      className="rounded-xl border px-4 py-2 font-semibold hover:bg-slate-50"
+                      className="rounded-xl border px-4 py-1 font-medium hover:bg-slate-50"
                     >
                       Edit
                     </button>
                     <button
                       onClick={() => toggleActive(j)}
-                      className="rounded-xl bg-slate-900 px-4 py-2 text-white font-semibold hover:bg-slate-800"
+                      className="rounded-xl bg-slate-900 px-4 py-1 text-white font-medium hover:bg-slate-800"
                     >
                       {(j.isActive ?? true) ? "Deactivate" : "Activate"}
                     </button>
                     <button
                       onClick={() => remove(j)}
-                      className="rounded-xl border border-rose-200 bg-rose-50 px-4 py-2 font-semibold text-rose-700 hover:bg-rose-100"
+                      className="rounded-xl border border-rose-200 bg-rose-50 px-4 py-1 font-medium text-rose-700 hover:bg-rose-100"
                     >
                       Delete
                     </button>
