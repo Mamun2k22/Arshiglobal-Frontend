@@ -13,6 +13,23 @@ import WhyChooseUs from "../components/WhyChooseUs";
 import AboutSection from "../components/AboutSection";
 import AboutShowcaseSection from "../components/AboutShowcaseSection";
 import ServicesThreeCards from "../components/ui/ServicesThreeCards";
+import ChooseCountry from "../components/ChooseCountry";
+import { motion } from "framer-motion";
+import { 
+  FaArrowRight, 
+  FaBriefcase, 
+  FaGlobe, 
+  FaPassport,
+  FaStar,
+  FaShieldAlt,
+  FaClock,
+  FaCheckCircle,
+  FaMapMarkerAlt,
+  FaMoneyBillWave
+} from "react-icons/fa";
+import { MdWork, MdFlight, MdSchool, MdFamilyRestroom } from "react-icons/md";
+import TrustedHeroSection from "../components/ui/HomeBanner/TrustedHeroSection";
+import HeroSlider from "../components/HomeHero/HeroSlider";
 
 export default function Home() {
   const [services, setServices] = useState([]);
@@ -33,6 +50,47 @@ export default function Home() {
       .then((r) => setFaqs(r.data?.items || []))
       .catch(() => {});
   }, []);
+
+  // Helper functions for services
+  const getServiceIcon = (title) => {
+    const titleLower = title.toLowerCase();
+    if (titleLower.includes("work") || titleLower.includes("job") || titleLower.includes("permit")) 
+      return <MdWork className="text-2xl" />;
+    if (titleLower.includes("europe") || titleLower.includes("schengen")) 
+      return <FaGlobe className="text-2xl" />;
+    if (titleLower.includes("study") || titleLower.includes("student")) 
+      return <MdSchool className="text-2xl" />;
+    if (titleLower.includes("tour") || titleLower.includes("visit")) 
+      return <MdFlight className="text-2xl" />;
+    if (titleLower.includes("family")) 
+      return <MdFamilyRestroom className="text-2xl" />;
+    return <FaPassport className="text-2xl" />;
+  };
+
+  const getGradient = (index) => {
+    const gradients = [
+      "from-blue-600 to-purple-600",
+      "from-emerald-600 to-teal-600",
+      "from-amber-600 to-rose-600",
+      "from-violet-600 to-fuchsia-600",
+      "from-sky-600 to-indigo-600",
+      "from-pink-600 to-red-600",
+    ];
+    return gradients[index % gradients.length];
+  };
+
+  const getLightBg = (index) => {
+    const bgColors = [
+      "bg-blue-50",
+      "bg-emerald-50",
+      "bg-amber-50",
+      "bg-violet-50",
+      "bg-sky-50",
+      "bg-pink-50",
+    ];
+    return bgColors[index % bgColors.length];
+  };
+
   function FaqAccordion({ items = [] }) {
     const [openId, setOpenId] = useState(null);
 
@@ -103,7 +161,7 @@ export default function Home() {
                       {f.answer}
                     </p>
                   </div>
-                </div>
+              </div>
               </div>
             );
           })}
@@ -114,81 +172,326 @@ export default function Home() {
 
   return (
     <div>
+      {/* <HeroSlider /> */}
       <Hero />
-      <PremiumMarquee />
-       <ServicesThreeCards />
-      {/* Services */}
-      <Section
-        title="Services"
-        subtitle="Our core services to support your visa and job process."
-      >
-        <div className="grid md:grid-cols-3 gap-5">
-          {services.map((s) => (
-            <Card key={s._id}>
-              <div className="p-5">
-                <div className="font-semibold text-lg">{s.title}</div>
-                <p className="mt-2 text-sm text-slate-600 line-clamp-3">
-                  {s.shortDescription || s.description || ""}
-                </p>
-                <Link
-                  to={`/services/${s._id}`}
-                  className="inline-block mt-4 text-sm font-semibold text-emerald-700 hover:underline"
-                >
-                  View details →
-                </Link>
-              </div>
-            </Card>
-          ))}
-        </div>
-      </Section>
-     
-      <AboutSection />
-      {/* <AboutShowcaseSection /> */}
-      <ProcessSection />
-      {/* Featured Jobs */}
-      <Section
-        title="Latest Jobs"
-        subtitle="Browse latest opportunities and apply with confidence."
-      >
-        <div className="grid md:grid-cols-2 gap-5">
-          {jobs.map((j) => (
-            <Card key={j._id}>
-              <div className="p-5 flex items-start justify-between gap-4">
-                <div>
-                  <div className="font-semibold text-lg">{j.title}</div>
-                  <div className="mt-2 flex flex-wrap gap-2">
-                    <Badge>{j.country}</Badge>
-                    <Badge>{j.category}</Badge>
-                    {j.salary ? <Badge>{j.salary}</Badge> : null}
-                  </div>
-                  <p className="mt-3 text-sm text-slate-600 line-clamp-2">
-                    {j.description}
-                  </p>
-                </div>
-                <Link
-                  to={`/jobs/${j._id}`}
-                  className="shrink-0 px-4 py-2 rounded-xl bg-slate-900 text-white text-sm font-semibold"
-                >
-                  Details
-                </Link>
-              </div>
-            </Card>
-          ))}
+          <PremiumMarquee />
+      <TrustedHeroSection />
+  
+      <ServicesThreeCards />
+      
+      {/* Services Section - Redesigned */}
+      <section className="py-16 bg-gradient-to-b from-gray-50 to-white relative overflow-hidden">
+        {/* Background Decorations */}
+        <div className="absolute inset-0 overflow-hidden">
+          <motion.div
+            animate={{
+              scale: [1, 1.2, 1],
+              rotate: [0, 45, 0],
+            }}
+            transition={{ duration: 15, repeat: Infinity }}
+            className="absolute -top-40 -right-40 w-96 h-96 bg-gradient-to-br from-blue-200/30 via-purple-200/30 to-pink-200/30 rounded-full blur-3xl"
+          />
         </div>
 
-        <div className="mt-6">
-          <Link
-            to="/jobs"
-            className="text-sm font-semibold text-slate-900 hover:underline"
+        <div className="relative mx-auto max-w-7xl px-4">
+          {/* Section Header */}
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="text-center mb-12"
           >
-            See all jobs →
-          </Link>
+            <motion.div
+              initial={{ scale: 0 }}
+              whileInView={{ scale: 1 }}
+              viewport={{ once: true }}
+              className="inline-block mb-4"
+            >
+              <span className="px-4 py-2 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-full text-sm font-semibold shadow-lg">
+                ✦ What We Offer ✦
+              </span>
+            </motion.div>
+
+            <h2 className="text-4xl md:text-5xl font-black mb-4">
+              <span className="bg-gradient-to-r from-blue-700 via-purple-700 to-pink-700 bg-clip-text text-transparent">
+                Services
+              </span>
+            </h2>
+
+            <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+              Our core services to support your visa and job process.
+            </p>
+          </motion.div>
+
+          {/* Services Grid */}
+          <div className="grid md:grid-cols-3 gap-6">
+            {services.map((service, index) => {
+              const gradient = getGradient(index);
+              const lightBg = getLightBg(index);
+              
+              return (
+                <motion.div
+                  key={service._id}
+                  initial={{ opacity: 0, y: 50 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: index * 0.1 }}
+                  whileHover={{ y: -8 }}
+                  className="group relative"
+                >
+                  <div className="relative bg-white rounded-2xl p-6 shadow-xl hover:shadow-2xl transition-all duration-300 border border-gray-100 h-full overflow-hidden">
+                    
+                    {/* Hover Background */}
+                    <motion.div
+                      className={`absolute inset-0 ${lightBg} opacity-0 group-hover:opacity-100 transition-opacity duration-500`}
+                    />
+
+                    {/* Top Gradient Line */}
+                    <motion.div
+                      className={`absolute top-0 left-0 h-1 bg-gradient-to-r ${gradient}`}
+                      initial={{ width: 0 }}
+                      whileHover={{ width: "100%" }}
+                      transition={{ duration: 0.4 }}
+                    />
+
+                    {/* Icon */}
+                    <div className="relative mb-4">
+                      <div className={`w-14 h-14 rounded-xl bg-gradient-to-br ${gradient} flex items-center justify-center text-white shadow-lg group-hover:scale-110 transition-all duration-300`}>
+                        {getServiceIcon(service.title)}
+                      </div>
+                      
+                      {/* Popular Badge */}
+                      {index < 2 && (
+                        <motion.div
+                          initial={{ scale: 0 }}
+                          animate={{ scale: 1 }}
+                          className="absolute -top-2 -right-2"
+                        >
+                          <div className="w-8 h-8 bg-gradient-to-r from-yellow-400 to-amber-400 rounded-full flex items-center justify-center shadow-lg">
+                            <FaStar className="text-white text-xs" />
+                          </div>
+                        </motion.div>
+                      )}
+                    </div>
+
+                    {/* Content */}
+                    <div className="relative z-10">
+                      <h3 className="text-xl font-bold text-gray-900 mb-2">
+                        {service.title}
+                      </h3>
+
+                      <p className="text-gray-600 text-sm leading-relaxed mb-4 line-clamp-3">
+                        {service.shortDescription || service.description || "Professional visa and job processing support with expert guidance."}
+                      </p>
+
+                      {/* Tags */}
+                      <div className="flex flex-wrap gap-2 mb-4">
+                        <span className="px-2 py-1 bg-blue-50 text-blue-600 text-xs rounded-full flex items-center gap-1">
+                          <FaCheckCircle className="text-[10px]" />
+                          Fast Processing
+                        </span>
+                        <span className="px-2 py-1 bg-purple-50 text-purple-600 text-xs rounded-full flex items-center gap-1">
+                          <FaShieldAlt className="text-[10px]" />
+                          100% Legal
+                        </span>
+                      </div>
+
+                      {/* Link */}
+                      <motion.div whileHover={{ x: 5 }}>
+                        <Link
+                          to={`/services/${service._id}`}
+                          className={`inline-flex items-center gap-2 text-sm font-semibold bg-gradient-to-r ${gradient} bg-clip-text text-transparent`}
+                        >
+                          View details
+                          <FaArrowRight className="text-xs group-hover:translate-x-1 transition-transform" />
+                        </Link>
+                      </motion.div>
+                    </div>
+                  </div>
+                </motion.div>
+              );
+            })}
+          </div>
+
+          {/* View All Button */}
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="text-center mt-12"
+          >
+            <Link
+              to="/services"
+              className="inline-flex items-center gap-3 px-8 py-4 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-xl font-semibold shadow-lg hover:shadow-xl transition-all group"
+            >
+              <span>View All Services</span>
+              <motion.span
+                animate={{ x: [0, 5, 0] }}
+                transition={{ duration: 1.5, repeat: Infinity }}
+              >
+                <FaArrowRight />
+              </motion.span>
+            </Link>
+          </motion.div>
         </div>
-      </Section>
+      </section>
+
+      <ChooseCountry />
+      <AboutSection />
+      <ProcessSection />
+      
+      {/* Jobs Section - Redesigned */}
+      <section className="py-16 bg-gradient-to-b from-white to-gray-50 relative overflow-hidden">
+        <div className="absolute inset-0 overflow-hidden">
+          <motion.div
+            animate={{
+              scale: [1, 1.2, 1],
+              rotate: [0, -45, 0],
+            }}
+            transition={{ duration: 15, repeat: Infinity }}
+            className="absolute -bottom-40 -left-40 w-96 h-96 bg-gradient-to-br from-emerald-200/30 via-teal-200/30 to-cyan-200/30 rounded-full blur-3xl"
+          />
+        </div>
+
+        <div className="relative mx-auto max-w-7xl px-4">
+          {/* Section Header */}
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="text-center mb-12"
+          >
+            <motion.div
+              initial={{ scale: 0 }}
+              whileInView={{ scale: 1 }}
+              viewport={{ once: true }}
+              className="inline-block mb-4"
+            >
+              <span className="px-4 py-2 bg-gradient-to-r from-emerald-600 to-teal-600 text-white rounded-full text-sm font-semibold shadow-lg">
+                ✦ Opportunities ✦
+              </span>
+            </motion.div>
+
+            <h2 className="text-4xl md:text-5xl font-black mb-4">
+              <span className="bg-gradient-to-r from-emerald-700 via-teal-700 to-cyan-700 bg-clip-text text-transparent">
+                Latest Jobs
+              </span>
+            </h2>
+
+            <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+              Browse latest opportunities and apply with confidence.
+            </p>
+          </motion.div>
+
+          {/* Jobs Grid */}
+          <div className="grid md:grid-cols-2 gap-6">
+            {jobs.map((job, index) => (
+              <motion.div
+                key={job._id}
+                initial={{ opacity: 0, y: 50 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: index * 0.1 }}
+                whileHover={{ y: -5 }}
+                className="group"
+              >
+                <div className="bg-white rounded-2xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-100 relative overflow-hidden">
+                  
+                  {/* Top Accent */}
+                  <motion.div
+                    className="absolute top-0 left-0 h-1 bg-gradient-to-r from-emerald-600 to-teal-600"
+                    initial={{ width: 0 }}
+                    whileHover={{ width: "100%" }}
+                    transition={{ duration: 0.4 }}
+                  />
+
+                  <div className="flex items-start justify-between gap-4">
+                    {/* Left Content */}
+                    <div className="flex-1">
+                      {/* Title with Icon */}
+                      <div className="flex items-center gap-2 mb-3">
+                        <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-emerald-600 to-teal-600 flex items-center justify-center text-white">
+                          <FaBriefcase className="text-lg" />
+                        </div>
+                        <h3 className="font-bold text-lg text-gray-900">
+                          {job.title}
+                        </h3>
+                      </div>
+
+                      {/* Badges */}
+                      <div className="flex flex-wrap gap-2 mb-3">
+                        {job.country && (
+                          <span className="inline-flex items-center gap-1 px-3 py-1 bg-blue-50 text-blue-700 rounded-full text-xs font-medium">
+                            <FaMapMarkerAlt className="text-[10px]" />
+                            {job.country}
+                          </span>
+                        )}
+                        {job.category && (
+                          <span className="inline-flex items-center gap-1 px-3 py-1 bg-purple-50 text-purple-700 rounded-full text-xs font-medium">
+                            <FaBriefcase className="text-[10px]" />
+                            {job.category}
+                          </span>
+                        )}
+                        {job.salary && (
+                          <span className="inline-flex items-center gap-1 px-3 py-1 bg-emerald-50 text-emerald-700 rounded-full text-xs font-medium">
+                            <FaMoneyBillWave className="text-[10px]" />
+                            {job.salary}
+                          </span>
+                        )}
+                      </div>
+
+                      {/* Description */}
+                      <p className="text-sm text-gray-600 line-clamp-2 mb-3">
+                        {job.description}
+                      </p>
+
+                      {/* Meta Info */}
+                      <div className="flex items-center gap-3 text-xs text-gray-500">
+                        <span className="flex items-center gap-1">
+                          <FaClock />
+                          Posted recently
+                        </span>
+                      </div>
+                    </div>
+
+                    {/* Right - Details Button */}
+                    <motion.div whileHover={{ scale: 1.05 }}>
+                      <Link
+                        to={`/jobs/${job._id}`}
+                        className="shrink-0 px-5 py-2.5 rounded-xl bg-gradient-to-r from-emerald-600 to-teal-600 text-white text-sm font-semibold shadow-lg hover:shadow-xl transition-all inline-flex items-center gap-2"
+                      >
+                        Details
+                        <FaArrowRight className="text-xs" />
+                      </Link>
+                    </motion.div>
+                  </div>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+
+          {/* View All Link */}
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="text-center mt-10"
+          >
+            <Link
+              to="/jobs"
+              className="inline-flex items-center gap-2 text-emerald-600 font-semibold hover:text-emerald-700 transition-colors group"
+            >
+              <span>See all jobs</span>
+              <FaArrowRight className="group-hover:translate-x-1 transition-transform" />
+            </Link>
+          </motion.div>
+        </div>
+      </section>
 
       <StatsSection />
-      {/* FAQ */}
       <WhyChooseUs />
+      
+      {/* FAQ Section */}
       <Section title="FAQ" subtitle="Common questions from clients.">
         <FaqAccordion items={faqs} />
       </Section>

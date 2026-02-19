@@ -17,12 +17,14 @@ import {
   FiCreditCard,
   FiSettings,
   FiMail,
+  FiVideo,
 } from "react-icons/fi";
 import { RiAdminLine } from "react-icons/ri";
 import useLogout from "../../hooks/useLogout";
 import { useUser } from "../../hooks/userContext";
-import { FaApper, FaContao, FaList, FaQuestionCircle } from "react-icons/fa";
+import { FaApper, FaBriefcase, FaContao, FaList, FaQuestionCircle, FaWpforms } from "react-icons/fa";
 import { FaMessage } from "react-icons/fa6";
+import { MdOutlinePhotoLibrary } from "react-icons/md";
 
 const navBase =
   "flex items-center gap-3 px-3 py-2 rounded-sm text-sm font-medium transition";
@@ -104,14 +106,15 @@ export default function Dashboard() {
     {
       title: "Media/Video",
       items: [
+        { to: "/dashboard/hero", icon: <FiImage />, label: "Media/Banners" },
         {
           to: "/dashboard/gallery",
-          icon: <FiImage />,
+          icon: <MdOutlinePhotoLibrary />,
           label: "Gallery",
         },
         {
           to: "/dashboard/videos",
-          icon: <FiImage />,
+          icon: <FiVideo />,
           label: "Video",
         },
       ],
@@ -147,12 +150,12 @@ export default function Dashboard() {
         },
         {
           to: "/dashboard/applications",
-          icon: <FaApper />,
+          icon: <FaWpforms />,
           label: "Applications",
         },
         {
           to: "/dashboard/services",
-          icon: <FaApper />,
+          icon: <FaBriefcase />,
           label: "Services",
         },
       ],

@@ -4,18 +4,25 @@ import {
   FaPassport, 
   FaGlobeAmericas, 
   FaUserTie,
+  FaUsers,
+  FaBriefcase,
+  FaUmbrellaBeach,
   FaCheckCircle,
   FaStar,
   FaShieldAlt,
   FaClock,
   FaAward,
   FaPhone,
-  FaMapMarkerAlt
+  FaMapMarkerAlt,
+  FaHeart,
+  FaBuilding,
+  FaSuitcase
 } from "react-icons/fa";
-import { MdFlight, MdSchool, MdWork } from "react-icons/md";
+import { MdFlight, MdSchool, MdWork, MdFamilyRestroom } from "react-icons/md";
+import { GiCommercialAirplane, GiPassport } from "react-icons/gi";
 
 const services = [
-  {
+    {
     title: "Europe Tour",
     desc: "We strongly support best practice sharing across immigration & visa processes with cutting-edge technology",
     Icon: MdFlight,
@@ -39,6 +46,31 @@ const services = [
     lightBg: "bg-amber-50",
     badge: "Work Visa",
   },
+  {
+    title: "Family Sponsorship",
+    desc: "We strongly support best practice sharing across immigration & visa processes with cutting-edge technology",
+    Icon: MdFamilyRestroom,
+    gradient: "from-pink-600 via-rose-600 to-red-600",
+    lightBg: "bg-pink-50",
+    badge: "Family Visa",
+  },
+  {
+    title: "Business Visa",
+    desc: "We strongly support best practice sharing across immigration & visa processes with seamless digital solutions",
+    Icon: FaBriefcase,
+    gradient: "from-violet-600 via-purple-600 to-fuchsia-600",
+    lightBg: "bg-violet-50",
+    badge: "Business Travel",
+  },
+  {
+    title: "Tourist & Visitor",
+    desc: "We strongly support best practice sharing across immigration & visa processes with experienced professionals",
+    Icon: FaUmbrellaBeach,
+    gradient: "from-sky-600 via-blue-600 to-indigo-600",
+    lightBg: "bg-sky-50",
+    badge: "Tourist Visa",
+  },
+
 ];
 
 const cardVariants = {
@@ -47,7 +79,7 @@ const cardVariants = {
     opacity: 1,
     y: 0,
     transition: {
-      delay: i * 0.2,
+      delay: i * 0.15,
       duration: 0.8,
       ease: [0.4, 0, 0.2, 1],
     },
@@ -139,8 +171,8 @@ export default function ArshiToursServices() {
           </motion.p>
         </motion.div>
 
-        {/* Cards Grid - Europe Tour, Study Visa, Work Permit */}
-        <div className="grid gap-8 lg:grid-cols-3">
+        {/* Cards Grid - Now 6 services */}
+        <div className="grid gap-8 lg:grid-cols-3 md:grid-cols-2">
           {services.map((service, index) => (
             <motion.div
               key={service.title}
@@ -154,7 +186,7 @@ export default function ArshiToursServices() {
               className="relative group"
             >
               {/* Main Card */}
-              <div className="relative bg-white rounded-3xl p-8 shadow-2xl shadow-gray-200/60 border border-gray-100 overflow-hidden backdrop-blur-sm">
+              <div className="relative bg-white rounded-3xl p-8 shadow-2xl shadow-gray-200/60 border border-gray-100 overflow-hidden backdrop-blur-sm h-full">
                 
                 {/* Animated Background Gradient */}
                 <motion.div

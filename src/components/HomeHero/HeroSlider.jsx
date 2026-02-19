@@ -1,15 +1,13 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import "./HeroSection.css";
 
 export default function HeroSlider() {
   const [slides, setSlides] = useState([]);
 
-  // backend base url (production এ env দিয়ে দিবেন)
-  const API_BASE = import.meta.env.VITE_APP_SERVER_URL || "http://localhost:5000";
+  const API_BASE =
+    import.meta.env.VITE_APP_SERVER_URL || "http://localhost:5000/";
 
   useEffect(() => {
     const fetchBanners = async () => {
@@ -17,13 +15,11 @@ export default function HeroSlider() {
         const res = await fetch(`${API_BASE}api/banners`);
         const data = await res.json();
 
-        // backend returns: [{ _id, imageUrl, title, ... }]
         const mapped = (Array.isArray(data) ? data : []).map((b) => ({
           id: b._id,
           img: b.imageUrl?.startsWith("http")
             ? b.imageUrl
             : `${API_BASE}${b.imageUrl.startsWith("/") ? "" : "/"}${b.imageUrl}`,
-          to: b.to || "/shop-category",
           title: b.title || "",
         }));
 
@@ -35,13 +31,38 @@ export default function HeroSlider() {
     };
 
     fetchBanners();
-  }, []);
+  }, [API_BASE]);
 
   const NextArrow = ({ onClick }) => (
-    <button className="hero-arrow hero-arrow--next hidden md:flex" onClick={onClick} aria-label="Next">›</button>
+    <button
+      onClick={onClick}
+      aria-label="Next"
+      className="
+        hidden md:flex items-center justify-center
+        absolute right-4 top-1/2 -translate-y-1/2 z-10
+        h-11 w-11 rounded-full
+        border border-white/60 bg-black/30 text-white
+        hover:bg-black/45 active:scale-95 transition
+      "
+    >
+      ›
+    </button>
   );
+
   const PrevArrow = ({ onClick }) => (
-    <button className="hero-arrow hero-arrow--prev hidden md:flex" onClick={onClick} aria-label="Prev">‹</button>
+    <button
+      onClick={onClick}
+      aria-label="Prev"
+      className="
+        hidden md:flex items-center justify-center
+        absolute left-4 top-1/2 -translate-y-1/2 z-10
+        h-11 w-11 rounded-full
+        border border-white/60 bg-black/30 text-white
+        hover:bg-black/45 active:scale-95 transition
+      "
+    >
+      ‹
+    </button>
   );
 
   const settings = {
@@ -57,27 +78,44 @@ export default function HeroSlider() {
     nextArrow: <NextArrow />,
     prevArrow: <PrevArrow />,
     responsive: [
-      { breakpoint: 640, settings: { fade: false, speed: 380, arrows: false } }
-    ]
+      {
+        breakpoint: 640,
+        settings: { fade: false, speed: 380, arrows: false },
+      },
+    ],
   };
 
-  // banners empty হলে slider render না করলেও হবে
   if (!slides.length) return null;
 
   return (
-    <div className="hero-full">
+    <div
+      className="
+        relative w-full overflow-hidden
+        h-[170px] min-[360px]:h-[180px] sm:h-[220px] md:h-[420px] lg:h-[520px] xl:h-[600px]
+        max-h-[70vh]
+        [&_.slick-slider]:h-full [&_.slick-list]:h-full [&_.slick-track]:h-full
+        [&_.slick-slide>div]:h-full
+        [&_.slick-dots]:bottom-4
+        [&_.slick-dots_li_button:before]:text-white/40
+        [&_.slick-dots_li.slick-active_button:before]:text-white
+      "
+    >
       <Slider {...settings}>
         {slides.map((s, i) => (
-          <div key={s.id} className="hero-slide">
-            <Link to={s.to} aria-label={s.title || `Banner ${i + 1}`}>
+          <div key={s.id} className="h-full">
+            {/* ❌ Link removed */}
+            <div className="block h-full">
               <img
                 src={s.img}
                 alt={s.title || `Banner ${i + 1}`}
-                className="hero-img"
                 loading={i === 0 ? "eager" : "lazy"}
-                sizes="(max-width: 640px) 100vw, (max-width: 1024px) 100vw, 100vw"
+                className="
+                  w-full h-full block
+                  object-contain bg-white
+                  select-none pointer-events-none
+                "
               />
-            </Link>
+            </div>
           </div>
         ))}
       </Slider>

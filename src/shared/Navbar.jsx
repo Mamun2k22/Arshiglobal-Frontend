@@ -133,21 +133,24 @@ export default function Navbar() {
           {/* Desktop Nav */}
           <nav className="hidden md:flex items-center gap-1">
             <NavItem to="/">Home</NavItem>
-            <NavItem to="/jobs">Jobs</NavItem>
-            <NavItem to="/about">About</NavItem>
-            <NavLink
+                  <NavLink
               to="/services"
               className="px-3 py-2 rounded-lg text-sm font-semibold text-slate-600 hover:text-slate-900 hover:bg-slate-100 transition"
             >
               Services
             </NavLink>
+            <NavItem to="/jobs">Jobs</NavItem>
+         
+      
 
             <NavItem to="/media">Media</NavItem>
+               <NavItem to="/about">About</NavItem>
+                    <NavItem to="/contact">Contact</NavItem>
             <DrawerItem to="/education-guidance" onClick={closeDrawer}>
               Education Guidance
             </DrawerItem>
 
-            <NavItem to="/contact">Contact</NavItem>
+       
 
             {/* CTA + WhatsApp */}
             <button
