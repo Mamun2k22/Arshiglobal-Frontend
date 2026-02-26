@@ -1,148 +1,117 @@
 import React from "react";
+import { HiOutlineGlobeAlt } from "react-icons/hi";
+import { MdOutlineLuggage } from "react-icons/md";
+import { FaPassport, FaPlane } from "react-icons/fa";
 
-const IMAGES = {
-  top: "https://immipress.themejunction.net/wp-content/uploads/2024/02/about-h3-img.jpg",
-  badge: "https://immipress.themejunction.net/wp-content/uploads/2024/02/certified.png",
-  left: "https://immipress.themejunction.net/wp-content/uploads/2024/02/about-h3-left-img.jpg",
-  right: "https://immipress.themejunction.net/wp-content/uploads/2024/02/about-h3-right-img.jpg",
-};
+export default function WhyChooseUsSection() {
+  const BG =
+    "https://www.ibookgetway.com/Content/client-UI/IBook/images/globe-bg.jpg";
+  const GIRL =
+    "https://dtora.wpengine.com/wp-content/uploads/2019/04/why-us-img-new-540x718.png";
 
-export default function WhyChooseUs() {
+  const features = [
+    {
+      icon: HiOutlineGlobeAlt,
+      title: "All Around the World Tours",
+      desc: "Dummy text ever since the 1500s, when an unknown printer took. A galley of type and scrambled it to make a type.",
+    },
+    {
+      icon: MdOutlineLuggage,
+      title: "Private & Customized Tours",
+      desc: "Dummy text ever since the 1500s, when an unknown printer took. A galley of type and scrambled it to make a type.",
+    },
+    {
+      icon: FaPassport,
+      title: "Immigration & Passport Help",
+      desc: "Dummy text ever since the 1500s, when an unknown printer took. A galley of type and scrambled it to make a type.",
+    },
+  ];
+
   return (
-    <section className="py-12 md:py-20 bg-white">
-      <div className="max-w-7xl mx-auto px-4">
-        <div className="grid lg:grid-cols-2 gap-10 lg:gap-14 items-center">
-          {/* LEFT: Collage */}
-          <div className="relative">
-            {/* Collage container */}
-            <div className="relative grid grid-cols-2 gap-5 md:gap-6">
-              {/* Top big image (span 2 cols) */}
-              <div className="col-span-2 overflow-hidden rounded-2xl">
-                <img
-                  src={IMAGES.top}
-                  alt="About top"
-                  className="w-full h-[210px] sm:h-[260px] md:h-[300px] object-cover"
-                  loading="lazy"
-                />
-              </div>
+    <section className="relative w-full overflow-hidden">
+      {/* Background */}
+      <div className="absolute inset-0">
+        <img src={BG} alt="" className="w-full h-full object-cover" />
+        {/* teal overlay like screenshot */}
+        <div className="absolute inset-0 bg-[#46c7d2]/80" />
+      </div>
 
-              {/* Bottom left */}
-              <div className="overflow-hidden rounded-2xl">
-                <img
-                  src={IMAGES.left}
-                  alt="About left"
-                  className="w-full h-[210px] sm:h-[240px] md:h-[260px] object-cover"
-                  loading="lazy"
-                />
-              </div>
-
-              {/* Bottom right */}
-              <div className="overflow-hidden rounded-2xl">
-                <img
-                  src={IMAGES.right}
-                  alt="About right"
-                  className="w-full h-[210px] sm:h-[240px] md:h-[260px] object-cover"
-                  loading="lazy"
-                />
-              </div>
+      <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-14 lg:py-20">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-14 items-center">
+          {/* LEFT */}
+          <div className="text-white">
+            {/* heading */}
+            <div className="flex items-center gap-4">
+              <h2 className="text-xl sm:text-2xl font-extrabold tracking-[0.25em]">
+                WHY US?
+              </h2>
+              <span className="h-[2px] w-10 bg-white/70" />
             </div>
 
-            {/* Center badge */}
-            <div className="absolute left-1/2 top-[46%] -translate-x-1/2 -translate-y-1/2">
-              <div className="w-[110px] h-[110px] md:w-[130px] md:h-[130px] rounded-full bg-white shadow-xl flex items-center justify-center">
-                <img
-                  src={IMAGES.badge}
-                  alt="Certified badge"
-                  className="w-[78px] md:w-[88px] h-auto"
-                  loading="lazy"
+            <p className="mt-3 text-sm sm:text-base font-semibold text-white/90">
+              We make all the process easy
+            </p>
+
+            <div className="mt-10 space-y-10">
+              {features.map((f) => (
+                <FeatureRow
+                  key={f.title}
+                  Icon={f.icon}
+                  title={f.title}
+                  desc={f.desc}
                 />
-              </div>
+              ))}
             </div>
           </div>
 
-          {/* RIGHT: Content */}
-          <div>
-            <p className="text-rose-500 font-semibold tracking-wide">Why Choose Us</p>
+          {/* RIGHT */}
+          <div className="relative flex justify-center lg:justify-end">
+            {/* white frame */}
+            <div className="absolute right-2 sm:right-6 lg:right-10 top-6 sm:top-10 w-[290px] sm:w-[360px] lg:w-[420px] h-[420px] sm:h-[520px] lg:h-[580px] border-[10px] border-white/95" />
 
-            <h2 className="mt-3 text-3xl md:text-4xl font-extrabold text-slate-900 leading-tight">
-              Experienced Lawyers Provide <br className="hidden sm:block" />
-              Immigration Services.
-            </h2>
+            {/* brush stroke behind girl */}
+            <div className="absolute right-6 sm:right-12 lg:right-16 top-3 sm:top-6 w-[320px] sm:w-[390px] lg:w-[460px] h-[460px] sm:h-[560px] lg:h-[620px] bg-white/25 rotate-2 rounded-[28px] blur-[0.2px]" />
 
-            <p className="mt-4 text-slate-600 leading-relaxed max-w-xl">
-              Quisque dignissim enim diam, eget pulvinar ex viverra id. Nulla a
-              lobortis lectus, id volutpat magna. Morbi consequat porttitor
-              fermentum. Nulla vestibulum tincidunt viverra. Vestibulum accumsan
-              molestie lorem, non laoreet massa.
-            </p>
+            {/* girl */}
+            <img
+              src={GIRL}
+              alt="Traveler"
+              className="relative z-10 w-[300px] sm:w-[380px] lg:w-[460px] object-contain drop-shadow-2xl"
+              loading="lazy"
+            />
 
-            {/* Mission/Vision + side image */}
-            <div className="mt-7 grid md:grid-cols-[1fr_220px] gap-6 items-start">
-              {/* Left: cards */}
-              <div className="space-y-4">
-                <div className="flex gap-4 rounded-2xl bg-white shadow-[0_12px_40px_-28px_rgba(0,0,0,0.35)] border border-slate-100 p-4">
-                  <div className="w-12 h-12 rounded-xl bg-rose-50 flex items-center justify-center shrink-0">
-                    {/* simple inline icon */}
-                    <svg
-                      viewBox="0 0 24 24"
-                      className="w-6 h-6 text-rose-500"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="2"
-                    >
-                      <path d="M12 2l2.5 7H22l-6 4.2L18.5 21 12 16.8 5.5 21 8 13.2 2 9h7.5L12 2z" />
-                    </svg>
-                  </div>
-                  <div>
-                    <h4 className="font-bold text-slate-900">Our Mission</h4>
-                    <p className="text-sm text-slate-600 mt-1">
-                      Lorem ipsum is simply velit anod ips aliquet eneqa quis.
-                    </p>
-                  </div>
-                </div>
-
-                <div className="flex gap-4 rounded-2xl bg-white shadow-[0_12px_40px_-28px_rgba(0,0,0,0.35)] border border-slate-100 p-4">
-                  <div className="w-12 h-12 rounded-xl bg-rose-50 flex items-center justify-center shrink-0">
-                    <svg
-                      viewBox="0 0 24 24"
-                      className="w-6 h-6 text-rose-500"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="2"
-                    >
-                      <path d="M12 20l9-16H3l9 16z" />
-                      <path d="M12 20V4" />
-                    </svg>
-                  </div>
-                  <div>
-                    <h4 className="font-bold text-slate-900">Our Vision</h4>
-                    <p className="text-sm text-slate-600 mt-1">
-                      Lorem ipsum is simply velit anod ips aliquet eneqa quis.
-                    </p>
-                  </div>
-                </div>
-              </div>
-
-              {/* Right: small image */}
-              <div className="overflow-hidden rounded-2xl border border-slate-100 shadow-[0_12px_40px_-28px_rgba(0,0,0,0.35)]">
-                <img
-                  src={IMAGES.top}
-                  alt="Small"
-                  className="w-full h-[170px] md:h-[190px] object-cover"
-                  loading="lazy"
-                />
-              </div>
-            </div>
-
-            {/* Button */}
-            <div className="mt-7">
-              <button className="px-7 py-3 rounded-lg bg-rose-500 hover:bg-rose-600 transition text-white font-semibold shadow-md">
-                Discover More
-              </button>
+            {/* Make Possible text */}
+            <div className="absolute left-4 sm:left-10 lg:left-16 bottom-10 z-20">
+              <p className="text-white/90 text-3xl sm:text-4xl font-[cursive] italic drop-shadow">
+                Make Possible
+              </p>
             </div>
           </div>
         </div>
       </div>
+
+      {/* bottom-right airplane icon */}
+      <div className="absolute right-6 bottom-6 text-white/95">
+        <FaPlane className="text-3xl -rotate-12 drop-shadow" />
+      </div>
     </section>
+  );
+}
+
+function FeatureRow({ Icon, title, desc }) {
+  return (
+    <div className="flex items-start gap-6">
+      <div className="mt-1 w-12 h-12 rounded-xl bg-white/0 grid place-items-center">
+        <Icon className="text-black text-[34px]" />
+      </div>
+      <div>
+        <h3 className="text-lg sm:text-xl font-extrabold text-[#083c66]">
+          {title}
+        </h3>
+        <p className="mt-3 text-sm sm:text-base leading-5 font-semibold text-white/90 max-w-xl">
+          {desc}
+        </p>
+      </div>
+    </div>
   );
 }

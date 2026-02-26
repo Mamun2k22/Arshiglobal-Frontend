@@ -7,7 +7,7 @@
 @tailwind components;
 @tailwind utilities;
 
-.swiper-button-next,
+/* .swiper-button-next,
 .swiper-button-prev {
   background-color: rgba(0, 0, 0, 0.1);
   border-radius: 50%;
@@ -19,7 +19,7 @@
 .swiper-button-prev::after {
   font-size: 16px;
   color: black;
-}
+} */
 
 
 /* no-scrollbar.css */
@@ -128,7 +128,7 @@
 } */
 
 /* Continuous marquee (no gap, no scrollbar) */
-.marquee-track {
+/* .marquee-track {
   width: max-content;
   animation-name: marquee-left;
   animation-timing-function: linear;
@@ -137,7 +137,7 @@
 }
 
 /* hover করলে marquee pause হবে */
-.group:hover .marquee-track {
+/* .group:hover .marquee-track {
   animation-play-state: paused;
 }
 
@@ -225,13 +225,13 @@
   white-space: nowrap;
   animation: exitLeftOnly 2.5s linear;
 }
-
+ */
 
 
 
 /* approch */
 /* আপনার global.css বা main.css ফাইলে যোগ করুন */
-@keyframes marquee {
+/* @keyframes marquee {
   0% {
     transform: translateX(0);
   }
@@ -256,4 +256,97 @@
   100% {
     transform: translateX(100%);
   }
+} */ */
+
+
+/* Slick Dots Customization */
+.slick-dots li {
+  margin: 0 4px;
+  width: auto;
+  height: auto;
+}
+
+.slick-dots li button {
+  width: 8px;
+  height: 8px;
+  padding: 0;
+}
+
+.slick-dots li button:before {
+  display: none;
+}
+
+.slick-dots li.slick-active div {
+  background-color: white !important;
+  width: 24px !important;
+}
+
+/* Smooth transitions */
+.slick-slide {
+  transition: all 0.5s ease;
+}
+
+/* Zoom effect on images */
+.slick-active img {
+  transform: scale(1);
+  transition: transform 8s ease-out;
+}
+
+
+/* 🔁 Globe Rotate */
+@keyframes worldRotate {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+.animate-world-rotate {
+  animation: worldRotate 18s linear infinite;
+  will-change: transform;
+}
+
+/* 🌊 WORLD background moving animation */
+@keyframes worldBgMove {
+  from { background-position: 0% center; }
+  to   { background-position: 200% center; }
+}
+
+.world-text {
+  background-image: url("https://www.ibookgetway.com/Content/client-UI/IBook/images/animation-title-bg.jpg");
+  background-size: 200% auto;
+  background-repeat: repeat-x;
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+  animation: worldBgMove 30s linear infinite; /* slower */
+}
+
+
+/* Add these animations to your global CSS */
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+}
+
+.animate-float {
+  animation: float 3s ease-in-out infinite;
+}
+
+/* Custom scrollbar for hotel cards */
+.overflow-y-auto::-webkit-scrollbar {
+  width: 6px;
+}
+
+.overflow-y-auto::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+.overflow-y-auto::-webkit-scrollbar-thumb {
+  background: #fbbf24;
+  border-radius: 3px;
+}
+
+/* Smooth transitions */
+* {
+  transition: background-color 0.3s, border-color 0.3s, box-shadow 0.3s;
 }

@@ -1,6 +1,7 @@
 // src/pages/admin/AdminSiteSettings.jsx
 import React, { useEffect, useMemo, useState } from "react";
 import { api } from "../../lib/api";
+import { useSiteSettings } from "../../context/SiteSettingsContext";
 
 const Section = ({ title, desc, children }) => (
   <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
@@ -91,7 +92,6 @@ const defaultForm = {
   aboutContent: "",
 
   footerText: "",
-  isActive: true,
 };
 
 export default function AdminSiteSettings() {
@@ -103,6 +103,7 @@ export default function AdminSiteSettings() {
   const [form, setForm] = useState(defaultForm);
 
   const setField = (key, value) => setForm((p) => ({ ...p, [key]: value }));
+  const { refresh } = useSiteSettings();
 
   const fetchSettings = async () => {
     setLoading(true);
@@ -148,34 +149,35 @@ export default function AdminSiteSettings() {
     setError("");
     setNotice("");
 
-    const payload = {
-      siteName: form.siteName,
-      logo: form.logo,
-      favicon: form.favicon,
+ const payload = {
+  siteName: form.siteName,
+  logo: form.logo,
+  favicon: form.favicon,
 
-      phone: form.phone,
-      whatsapp: form.whatsapp,
-      email: form.email,
-      address: form.address,
+  phone: form.phone,
+  whatsapp: form.whatsapp,
+  email: form.email,
+  address: form.address,
 
-      aboutTitle: form.aboutTitle,
-      aboutContent: form.aboutContent,
+  aboutTitle: form.aboutTitle,
+  aboutContent: form.aboutContent,
 
-      footerText: form.footerText,
-      isActive: !!form.isActive,
-    };
+  footerText: form.footerText,
+};
 
     try {
-      if (!settingsId) {
-        const { data } = await api.post("/api/site-settings", payload);
-        setSettingsId(data._id);
-        setNotice("Settings created successfully.");
-      } else {
-        await api.put(`/api/site-settings/${settingsId}`, payload);
-        setNotice("Settings updated successfully.");
-      }
-      await fetchSettings();
-    } catch (e) {
+  if (!settingsId) {
+    const { data } = await api.post("/api/site-settings", payload);
+    setSettingsId(data._id);
+    setNotice("Settings created successfully.");
+  } else {
+    await api.put("/api/site-settings", payload);
+    setNotice("Settings updated successfully.");
+  }
+
+  await refresh();      // ✅ this makes footer update instantly
+  await fetchSettings(); // admin form e latest reload (optional)
+} catch (e) {
       setError(e?.response?.data?.message || e.message || "Failed to save settings.");
     } finally {
       setSaving(false);
@@ -238,14 +240,6 @@ export default function AdminSiteSettings() {
                 />
               </Field>
 
-              <Field label="Active settings" hint="Public site uses only active settings.">
-                <div className="flex items-center gap-3">
-                  <Toggle checked={!!form.isActive} onChange={(v) => setField("isActive", v)} />
-                  <span className="text-sm text-slate-700">
-                    {form.isActive ? "Active" : "Inactive"}
-                  </span>
-                </div>
-              </Field>
             </Section>
 
             {/* Branding */}
@@ -269,7 +263,7 @@ export default function AdminSiteSettings() {
                 ) : null}
               </Field>
 
-              <Field label="Favicon URL" hint="Paste ImgBB direct image URL (32x32 recommended).">
+              {/* <Field label="Favicon URL" hint="Paste ImgBB direct image URL (32x32 recommended).">
                 <Input
                   value={form.favicon}
                   onChange={(e) => setField("favicon", e.target.value)}
@@ -286,7 +280,7 @@ export default function AdminSiteSettings() {
                     <div className="text-xs text-slate-600 break-all">{form.favicon}</div>
                   </div>
                 ) : null}
-              </Field>
+              </Field> */}
             </Section>
 
             {/* Contact */}

@@ -1,17 +1,16 @@
 import React from "react";
-import { FaPlaneDeparture } from "react-icons/fa";
-import { FiUsers } from "react-icons/fi";
-import { HiOutlineGlobeAlt } from "react-icons/hi";
-import { TbBalloon } from "react-icons/tb";
 
-function Stat({ icon: Icon, value, label }) {
+function Stat({ iconSrc, value, label }) {
   return (
     <div className="text-center text-white">
-      <div className="mx-auto grid h-14 w-14 place-items-center">
-        <Icon className="text-[34px]" />
-      </div>
+      <img
+        src={iconSrc}
+        alt=""
+        className="mx-auto h-10 w-10 md:h-11 md:w-11 object-contain brightness-0 invert"
+        loading="lazy"
+      />
 
-      <div className="mt-2 text-2xl md:text-3xl font-extrabold tracking-tight">
+      <div className="mt-3 text-2xl md:text-3xl font-extrabold tracking-[0.06em]">
         {value}
       </div>
 
@@ -24,17 +23,32 @@ function Stat({ icon: Icon, value, label }) {
 
 export default function StatsSection() {
   const stats = [
-    { icon: FaPlaneDeparture, value: "9000+", label: "Travel Packages" },
-    { icon: HiOutlineGlobeAlt, value: "280", label: "Branches All Over" },
-    { icon: FiUsers, value: "900+", label: "Expert Agents" },
-    { icon: TbBalloon, value: "1920", label: "Activities Listed" },
+    {
+      iconSrc: "https://dtora.wpengine.com/wp-content/uploads/2019/03/count1.png",
+      value: "9000+",
+      label: "Travel Packages",
+    },
+    {
+      iconSrc: "https://dtora.wpengine.com/wp-content/uploads/2019/03/count2.png",
+      value: "280",
+      label: "Branches All Over",
+    },
+    {
+      iconSrc: "https://dtora.wpengine.com/wp-content/uploads/2019/03/count3.png",
+      value: "900+",
+      label: "Expert Agents",
+    },
+    {
+      iconSrc: "https://dtora.wpengine.com/wp-content/uploads/2019/03/count4.png",
+      value: "1920",
+      label: "Activities Listed",
+    },
   ];
 
   return (
     <section className="py-10">
-      <div className="mx-auto max-w-full px-4">
-        {/* Card */}
-        <div className="relative overflow-hidden rounded-2xl">
+      <div className="mx-auto max-w-full">
+        <div className="relative overflow-hidden rounded-none">
           {/* Background map */}
           <div
             className="absolute inset-0 bg-cover bg-center"
@@ -44,62 +58,49 @@ export default function StatsSection() {
             }}
           />
 
-          {/* Blue overlay */}
-          <div className="absolute inset-0 bg-[#0b3a63]/85" />
+          {/* Blue overlay (screenshot vibe) */}
+          <div className="absolute inset-0 bg-[#0b3a63]/90" />
 
-          {/* Route dotted line */}
-          <div
-            aria-hidden
-            className="absolute inset-0 opacity-60"
-            style={{
-              backgroundImage:
-                "radial-gradient(circle, rgba(255,255,255,.35) 1px, transparent 1.8px)",
-              backgroundSize: "18px 18px",
-              maskImage:
-                "linear-gradient(to right, transparent 0%, black 12%, black 88%, transparent 100%)",
-              WebkitMaskImage:
-                "linear-gradient(to right, transparent 0%, black 12%, black 88%, transparent 100%)",
-            }}
-          />
-
-          {/* Curved path 느낌 (light line) */}
+          {/* Curved dotted route line */}
           <svg
             aria-hidden
-            className="absolute inset-0 w-full h-full opacity-35"
+            className="absolute inset-0 w-full h-full opacity-40"
             viewBox="0 0 1200 240"
             preserveAspectRatio="none"
           >
             <path
-              d="M40,150 C220,80 360,190 520,130 C650,80 760,180 900,120 C1020,70 1100,110 1160,90"
+              d="M50,150 C230,85 360,190 520,125 C660,70 760,180 900,118 C1040,62 1120,118 1165,92"
               fill="none"
-              stroke="white"
-              strokeWidth="2"
-              strokeDasharray="6 10"
+              stroke="rgba(255,255,255,0.9)"
+              strokeWidth="2.2"
+              strokeDasharray="2 10"
+              strokeLinecap="round"
             />
           </svg>
 
-          {/* Location pins */}
+          {/* Location pins (black circles like screenshot) */}
           {[
-            { left: "28%", top: "52%" },
-            { left: "48%", top: "40%" },
-            { left: "68%", top: "52%" },
+            { left: "26%", top: "54%" },
+            { left: "50%", top: "42%" },
+            { left: "73%", top: "54%" },
           ].map((p, i) => (
-            <div
-              key={i}
-              className="absolute"
-              style={{ left: p.left, top: p.top }}
-            >
-              <div className="h-9 w-9 rounded-full bg-black/30 grid place-items-center ring-1 ring-white/15">
-                <span className="h-2 w-2 rounded-full bg-white/90" />
+            <div key={i} className="absolute" style={{ left: p.left, top: p.top }}>
+              <div className="h-10 w-10 rounded-full bg-black/30 grid place-items-center ring-1 ring-white/10">
+                <div className="h-2.5 w-2.5 rounded-full bg-white/85" />
               </div>
             </div>
           ))}
 
           {/* Content */}
-          <div className="relative z-10 px-6 py-10 md:py-12">
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-10 items-center">
+          <div className="relative z-10 px-6 py-12 md:py-14">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-10 md:gap-12 items-center">
               {stats.map((s) => (
-                <Stat key={s.label} icon={s.icon} value={s.value} label={s.label} />
+                <Stat
+                  key={s.label}
+                  iconSrc={s.iconSrc}
+                  value={s.value}
+                  label={s.label}
+                />
               ))}
             </div>
           </div>

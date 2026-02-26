@@ -44,6 +44,7 @@ import About from "../pages/About";
 import EducationGuidance from "../components/EducationGuidance";
 import AdminApplications from "../pages/admin/AdminApplications";
 import AdminServices from "../pages/admin/AdminServices";
+import HotelPage from "../components/ui/hotel/HotelPage";
 
 const withBase = (p) => {
   const base = import.meta.env.VITE_APP_SERVER_URL || "";
@@ -79,10 +80,10 @@ export const router = createBrowserRouter([
         loader: ({ params }) => fetch(withBase(`api/category/${params.name}`)),
       },
       // auth
-      { path: "login", element: <Signup /> },
-      { path: "otp-verify", element: <Otp /> },
+      // { path: "login", element: <Signup /> },
+      // { path: "otp-verify", element: <Otp /> },
 
-      { path: "/forgot-password", element: <ForgotPassword /> },
+      // { path: "/forgot-password", element: <ForgotPassword /> },
 
       // ✅ Public Pages
       {
@@ -134,6 +135,7 @@ export const router = createBrowserRouter([
         loader: () => fetch(withBase("api/site-settings")),
       },
       { path: "about", element: <About /> },
+      { path: "hotel", element: <HotelPage /> },
          { path: "education-guidance", element: <EducationGuidance /> },
     ],
   },

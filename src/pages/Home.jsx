@@ -15,21 +15,29 @@ import AboutShowcaseSection from "../components/AboutShowcaseSection";
 import ServicesThreeCards from "../components/ui/ServicesThreeCards";
 import ChooseCountry from "../components/ChooseCountry";
 import { motion } from "framer-motion";
-import { 
-  FaArrowRight, 
-  FaBriefcase, 
-  FaGlobe, 
+import {
+  FaArrowRight,
+  FaBriefcase,
+  FaGlobe,
   FaPassport,
   FaStar,
   FaShieldAlt,
   FaClock,
   FaCheckCircle,
   FaMapMarkerAlt,
-  FaMoneyBillWave
+  FaMoneyBillWave,
 } from "react-icons/fa";
 import { MdWork, MdFlight, MdSchool, MdFamilyRestroom } from "react-icons/md";
 import TrustedHeroSection from "../components/ui/HomeBanner/TrustedHeroSection";
-import HeroSlider from "../components/HomeHero/HeroSlider";
+import HeroSlider from "../components/HomeHero/HomeCarowselBanner";
+import FlightHotelServices from "../components/New/FlightHotelServices";
+import TourismHero from "../components/ui/TourismHero";
+import HomeCarowselBanner from "../components/HomeHero/HomeCarowselBanner";
+import FollowAdventureSection from "../components/ui/FollowAdventureSection";
+import AboutVideo from "../components/ui/AboutVideo";
+import BrowseLocations from "../components/ui/BrowseLocations";
+import AroundTheWorld from "../components/ui/AroundTheWorld";
+import PromoBanner from "../components/PromoBanner";
 
 export default function Home() {
   const [services, setServices] = useState([]);
@@ -54,15 +62,19 @@ export default function Home() {
   // Helper functions for services
   const getServiceIcon = (title) => {
     const titleLower = title.toLowerCase();
-    if (titleLower.includes("work") || titleLower.includes("job") || titleLower.includes("permit")) 
+    if (
+      titleLower.includes("work") ||
+      titleLower.includes("job") ||
+      titleLower.includes("permit")
+    )
       return <MdWork className="text-2xl" />;
-    if (titleLower.includes("europe") || titleLower.includes("schengen")) 
+    if (titleLower.includes("europe") || titleLower.includes("schengen"))
       return <FaGlobe className="text-2xl" />;
-    if (titleLower.includes("study") || titleLower.includes("student")) 
+    if (titleLower.includes("study") || titleLower.includes("student"))
       return <MdSchool className="text-2xl" />;
-    if (titleLower.includes("tour") || titleLower.includes("visit")) 
+    if (titleLower.includes("tour") || titleLower.includes("visit"))
       return <MdFlight className="text-2xl" />;
-    if (titleLower.includes("family")) 
+    if (titleLower.includes("family"))
       return <MdFamilyRestroom className="text-2xl" />;
     return <FaPassport className="text-2xl" />;
   };
@@ -161,7 +173,7 @@ export default function Home() {
                       {f.answer}
                     </p>
                   </div>
-              </div>
+                </div>
               </div>
             );
           })}
@@ -172,16 +184,12 @@ export default function Home() {
 
   return (
     <div>
-      {/* <HeroSlider /> */}
-      <Hero />
-          <PremiumMarquee />
-      <TrustedHeroSection />
-  
-      <ServicesThreeCards />
-      
-      {/* Services Section - Redesigned */}
+     
+      <HomeCarowselBanner />
+      <BrowseLocations />
+      <TourismHero />
+      <FlightHotelServices />
       <section className="py-16 bg-gradient-to-b from-gray-50 to-white relative overflow-hidden">
-        {/* Background Decorations */}
         <div className="absolute inset-0 overflow-hidden">
           <motion.div
             animate={{
@@ -194,7 +202,6 @@ export default function Home() {
         </div>
 
         <div className="relative mx-auto max-w-7xl px-4">
-          {/* Section Header */}
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -223,12 +230,11 @@ export default function Home() {
             </p>
           </motion.div>
 
-          {/* Services Grid */}
           <div className="grid md:grid-cols-3 gap-6">
             {services.map((service, index) => {
               const gradient = getGradient(index);
               const lightBg = getLightBg(index);
-              
+
               return (
                 <motion.div
                   key={service._id}
@@ -240,13 +246,10 @@ export default function Home() {
                   className="group relative"
                 >
                   <div className="relative bg-white rounded-2xl p-6 shadow-xl hover:shadow-2xl transition-all duration-300 border border-gray-100 h-full overflow-hidden">
-                    
-                    {/* Hover Background */}
                     <motion.div
                       className={`absolute inset-0 ${lightBg} opacity-0 group-hover:opacity-100 transition-opacity duration-500`}
                     />
 
-                    {/* Top Gradient Line */}
                     <motion.div
                       className={`absolute top-0 left-0 h-1 bg-gradient-to-r ${gradient}`}
                       initial={{ width: 0 }}
@@ -254,13 +257,13 @@ export default function Home() {
                       transition={{ duration: 0.4 }}
                     />
 
-                    {/* Icon */}
                     <div className="relative mb-4">
-                      <div className={`w-14 h-14 rounded-xl bg-gradient-to-br ${gradient} flex items-center justify-center text-white shadow-lg group-hover:scale-110 transition-all duration-300`}>
+                      <div
+                        className={`w-14 h-14 rounded-xl bg-gradient-to-br ${gradient} flex items-center justify-center text-white shadow-lg group-hover:scale-110 transition-all duration-300`}
+                      >
                         {getServiceIcon(service.title)}
                       </div>
-                      
-                      {/* Popular Badge */}
+
                       {index < 2 && (
                         <motion.div
                           initial={{ scale: 0 }}
@@ -274,17 +277,17 @@ export default function Home() {
                       )}
                     </div>
 
-                    {/* Content */}
                     <div className="relative z-10">
                       <h3 className="text-xl font-bold text-gray-900 mb-2">
                         {service.title}
                       </h3>
 
                       <p className="text-gray-600 text-sm leading-relaxed mb-4 line-clamp-3">
-                        {service.shortDescription || service.description || "Professional visa and job processing support with expert guidance."}
+                        {service.shortDescription ||
+                          service.description ||
+                          "Professional visa and job processing support with expert guidance."}
                       </p>
 
-                      {/* Tags */}
                       <div className="flex flex-wrap gap-2 mb-4">
                         <span className="px-2 py-1 bg-blue-50 text-blue-600 text-xs rounded-full flex items-center gap-1">
                           <FaCheckCircle className="text-[10px]" />
@@ -296,7 +299,6 @@ export default function Home() {
                         </span>
                       </div>
 
-                      {/* Link */}
                       <motion.div whileHover={{ x: 5 }}>
                         <Link
                           to={`/services/${service._id}`}
@@ -313,7 +315,6 @@ export default function Home() {
             })}
           </div>
 
-          {/* View All Button */}
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -335,13 +336,20 @@ export default function Home() {
           </motion.div>
         </div>
       </section>
+ <WhyChooseUs />
+    <FollowAdventureSection />
+      <AroundTheWorld />
+       <AboutVideo />
+      <StatsSection />
+     
+   
+    
+     
+      {/* <ServicesThreeCards /> */}
+      {/* <AboutSection /> */}
 
-      <ChooseCountry />
-      <AboutSection />
-      <ProcessSection />
-      
       {/* Jobs Section - Redesigned */}
-      <section className="py-16 bg-gradient-to-b from-white to-gray-50 relative overflow-hidden">
+      {/* <section className="py-16 bg-gradient-to-b from-white to-gray-50 relative overflow-hidden">
         <div className="absolute inset-0 overflow-hidden">
           <motion.div
             animate={{
@@ -354,7 +362,7 @@ export default function Home() {
         </div>
 
         <div className="relative mx-auto max-w-7xl px-4">
-          {/* Section Header */}
+
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -383,7 +391,7 @@ export default function Home() {
             </p>
           </motion.div>
 
-          {/* Jobs Grid */}
+ 
           <div className="grid md:grid-cols-2 gap-6">
             {jobs.map((job, index) => (
               <motion.div
@@ -397,7 +405,7 @@ export default function Home() {
               >
                 <div className="bg-white rounded-2xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-100 relative overflow-hidden">
                   
-                  {/* Top Accent */}
+               
                   <motion.div
                     className="absolute top-0 left-0 h-1 bg-gradient-to-r from-emerald-600 to-teal-600"
                     initial={{ width: 0 }}
@@ -406,9 +414,9 @@ export default function Home() {
                   />
 
                   <div className="flex items-start justify-between gap-4">
-                    {/* Left Content */}
+        
                     <div className="flex-1">
-                      {/* Title with Icon */}
+            
                       <div className="flex items-center gap-2 mb-3">
                         <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-emerald-600 to-teal-600 flex items-center justify-center text-white">
                           <FaBriefcase className="text-lg" />
@@ -418,7 +426,7 @@ export default function Home() {
                         </h3>
                       </div>
 
-                      {/* Badges */}
+       
                       <div className="flex flex-wrap gap-2 mb-3">
                         {job.country && (
                           <span className="inline-flex items-center gap-1 px-3 py-1 bg-blue-50 text-blue-700 rounded-full text-xs font-medium">
@@ -440,12 +448,12 @@ export default function Home() {
                         )}
                       </div>
 
-                      {/* Description */}
+         
                       <p className="text-sm text-gray-600 line-clamp-2 mb-3">
                         {job.description}
                       </p>
 
-                      {/* Meta Info */}
+              
                       <div className="flex items-center gap-3 text-xs text-gray-500">
                         <span className="flex items-center gap-1">
                           <FaClock />
@@ -454,7 +462,7 @@ export default function Home() {
                       </div>
                     </div>
 
-                    {/* Right - Details Button */}
+          
                     <motion.div whileHover={{ scale: 1.05 }}>
                       <Link
                         to={`/jobs/${job._id}`}
@@ -470,7 +478,7 @@ export default function Home() {
             ))}
           </div>
 
-          {/* View All Link */}
+
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -486,11 +494,8 @@ export default function Home() {
             </Link>
           </motion.div>
         </div>
-      </section>
+      </section> */}
 
-      <StatsSection />
-      <WhyChooseUs />
-      
       {/* FAQ Section */}
       <Section title="FAQ" subtitle="Common questions from clients.">
         <FaqAccordion items={faqs} />

@@ -1,21 +1,35 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import logo from "../../../src/assets/logo.png";
+import logoFallback from "../../../src/assets/logo.png";
+import { useSiteSettings } from "../../context/SiteSettingsContext";
 
 import { FiPhone, FiMapPin, FiMail, FiClock, FiChevronUp } from "react-icons/fi";
 import { RiFacebookFill, RiYoutubeFill, RiInstagramFill } from "react-icons/ri";
 import { FaLinkedinIn, FaTiktok, FaXTwitter, FaWhatsapp, FaGoogle } from "react-icons/fa6";
 
 export default function NewFooter() {
-  // Provided by client
+
+  const { settings } = useSiteSettings(); // ✅ first line inside component
+
+  const company = settings?.siteName || "Arshi Global";
+  const phoneDisplay = settings?.phone || "+880 1316-889944";
+  const phoneTel = (settings?.phone || "+8801316889944").replace(/\s/g, "");
+  const email = settings?.email || "arshitraveldhaka@gmail.com";
+  const address = settings?.address || "924-A, BNS CENTER, SECTOR-07, UTTARA, Dhaka";
+
+  const waNumberOnly = String(settings?.whatsapp || "8801316889944").replace(/[^\d]/g, "");
+  const whatsappLink = waNumberOnly ? `https://wa.me/${waNumberOnly}` : "#";
+
+  const logoSrc = settings?.logo || logoFallback;
+
   const CONTACT = {
-    company: "Arshi Global",
+    company,
     tagline: "Visa • Job • Travel",
-    address: "924-A, BNS CENTER, SECTOR-07, UTTARA, Dhaka",
-    phoneDisplay: "+880 1316-889944",
-    phoneTel: "+8801316889944",
-    email: "arshitraveldhaka@gmail.com",
-    hours: "Saturday–Thursday: 10:00 AM – 7:00 PM • Friday: Closed",
+    address,
+    phoneDisplay,
+    phoneTel,
+    email,
+    hours: "Saturday–Thursday: 10:00 AM – 7:00 PM",
   };
 
   const SOCIALS = {
@@ -27,9 +41,8 @@ export default function NewFooter() {
     tiktok: "https://www.tiktok.com/@arshistoursandtravel",
     twitterX: "https://x.com/arshistours",
     googleBusiness: "https://share.google/JLjTlGtuofuMTEu9k",
-    whatsapp: "https://wa.me/+8801316889944",
+    whatsapp: whatsappLink,
   };
-
   return (
     <footer className="relative overflow-hidden text-white font-poppins text-[14px]">
       {/* Decorative BG */}
@@ -63,10 +76,10 @@ export default function NewFooter() {
             <div>
               <div className="flex items-center gap-3">
                 <img
-                  src={logo}
-                  alt="Arshi Global logo"
+                  src={logoSrc}
+                  alt={`${CONTACT.company} logo`}
                   className="h-20 w-auto"
-                  onError={(e) => (e.currentTarget.src = "/logo.webp")}
+                  onError={(e) => (e.currentTarget.src = logoFallback)}
                 />
                 <div className="leading-tight">
                   <div className="text-base font-extrabold">{CONTACT.company}</div>
@@ -74,10 +87,11 @@ export default function NewFooter() {
                 </div>
               </div>
 
-              <p className="mt-3 max-w-md text-sm text-white/80 leading-relaxed">
-                We provide trusted support for visa guidance, overseas job processing, documentation,
-                and travel assistance — with transparent steps and fast communication.
-              </p>
+<p className="mt-3 max-w-md text-sm text-white/80 leading-relaxed">
+  {settings?.footerText?.trim()
+    ? settings.footerText
+    : "We provide trusted support for visa guidance, overseas job processing, documentation, and travel assistance — with transparent steps and fast communication."}
+</p>
 
               <ul className="mt-5 space-y-3 text-sm">
                 <li className="flex items-center gap-3">
@@ -119,6 +133,9 @@ export default function NewFooter() {
                 target="_blank"
                 rel="noreferrer"
                 className="mt-5 inline-flex items-center gap-2 rounded-2xl bg-emerald-600 px-4 py-2 text-white font-extrabold hover:bg-emerald-700 transition"
+                onClick={(e) => {
+                  if (!waNumberOnly) e.preventDefault();
+                }}
               >
                 <FaWhatsapp />
                 WhatsApp
@@ -159,14 +176,13 @@ export default function NewFooter() {
               <div className="mt-2 h-[2px] w-10 rounded bg-sky-400/80" />
 
               <p className="mt-4 text-sm text-white/80 leading-relaxed">
-                Stay connected with Arshi Global for updates, offers, and travel guidance.
+                Stay connected with {CONTACT.company} for updates, offers, and travel guidance.
               </p>
 
               <div className="mt-5 flex flex-wrap gap-3">
                 <SocialBtn Icon={RiFacebookFill} href={SOCIALS.facebookPage} label="Facebook" />
                 <SocialBtn Icon={RiInstagramFill} href={SOCIALS.instagram} label="Instagram" />
                 <SocialBtn Icon={RiYoutubeFill} href={SOCIALS.youtube} label="YouTube" />
-
                 <SocialBtn Icon={FaLinkedinIn} href={SOCIALS.linkedin} label="LinkedIn" />
                 <SocialBtn Icon={FaTiktok} href={SOCIALS.tiktok} label="TikTok" />
                 <SocialBtn Icon={FaXTwitter} href={SOCIALS.twitterX} label="X (Twitter)" />
@@ -188,11 +204,9 @@ export default function NewFooter() {
 
           {/* Bottom Bar */}
           <div className="mt-6 flex flex-col items-center gap-4 sm:flex-row sm:justify-between">
-            <p className="text-sm text-white/70">
-              © Copyright {new Date().getFullYear()}{" "}
-              <span className="font-semibold">Arshi Global</span> All Rights Reserved.
-            </p>
-
+         <p className="text-sm text-white/70">
+  © 2026 Arshi Global. All Rights Reserved.
+</p>
             <a
               href="#top"
               className="group inline-flex items-center gap-2 rounded-full bg-sky-500/20 px-3 py-2 text-sky-200 hover:bg-sky-500/25"
@@ -214,6 +228,7 @@ export default function NewFooter() {
 }
 
 function FooterCol({ title, links = [] }) {
+  
   return (
     <div>
       <h4 className="text-[18px] font-semibold">{title}</h4>
@@ -269,7 +284,7 @@ function SocialBtn({ Icon, href, label = "Social" }) {
       title={label}
       className="grid h-10 w-10 place-items-center rounded-full bg-white/10 text-white hover:bg-white/15 transition"
       onClick={(e) => {
-        if (!href) e.preventDefault();
+        if (!href || href === "#") e.preventDefault();
       }}
     >
       <Icon size={18} />
