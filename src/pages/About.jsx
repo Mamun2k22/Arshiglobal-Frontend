@@ -1,674 +1,392 @@
-// src/pages/about/About.jsx
-import { useEffect, useMemo, useState } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
+import { MdPhone, MdEmail, MdLocationOn } from "react-icons/md";
+import { HiCheck } from "react-icons/hi";
+import { Shield, Target, Eye, Globe, Award, Users } from "lucide-react";
 
-const API_BASE = (import.meta.env.VITE_APP_SERVER_URL || "").replace(/\/$/, "");
+const ABOUT_BG =
+  "https://themes.adnanshoukat.com/designsbridge/visapro/images/about.jpg";
 
-async function getJSON(path) {
-  const res = await fetch(`${API_BASE}${path.startsWith("/") ? "" : "/"}${path}`, {
-    credentials: "include",
-  });
-  const data = await res.json().catch(() => ({}));
-  if (!res.ok) throw new Error(data?.message || "Request failed");
-  return data;
-}
-
-function Card({ children }) {
-  return <div className="rounded-2xl border border-slate-200 bg-white shadow-sm">{children}</div>;
-}
-
-function IconDot() {
-  return <span className="inline-block h-2.5 w-2.5 rounded-full bg-emerald-500" />;
-}
-
-function SocialLink({ href, label }) {
-  if (!href) return null;
+export default function AboutPageArshiGlobal() {
   return (
-    <a
-      href={href}
-      target="_blank"
-      rel="noreferrer"
-      className="inline-flex items-center justify-between rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm font-semibold hover:bg-slate-50"
-    >
-      <span>{label}</span>
-      <span className="text-slate-400">↗</span>
-    </a>
-  );
-}
+    <section className="w-full bg-[#f6f9fc]">
+      {/* ================= HERO / BANNER ================= */}
+      <div
+        className="relative h-[260px] sm:h-[320px] w-full bg-cover bg-center"
+        style={{ backgroundImage: `url(${ABOUT_BG})` }}
+      >
+        {/* dark overlay like screenshot */}
+        <div className="absolute inset-0 bg-gradient-to-r from-slate-950/80 via-slate-950/60 to-slate-950/30" />
 
-export default function About() {
-  const [settings, setSettings] = useState(null);
-  const [err, setErr] = useState("");
-
-  useEffect(() => {
-    (async () => {
-      try {
-        const s = await getJSON("/api/site-settings");
-        setSettings(s || {});
-      } catch (e) {
-        setErr(e.message || "Failed to load settings");
-        setSettings({});
-      }
-    })();
-  }, []);
-
-  const waLink = useMemo(() => {
-    const raw = String(settings?.whatsapp || settings?.whatsappLink || "").trim();
-    if (!raw) return "";
-    if (raw.includes("wa.me") || raw.startsWith("http")) return raw;
-    const digits = raw.replace(/\D/g, "");
-    return digits ? `https://wa.me/${digits}` : "";
-  }, [settings]);
-
-  const socials = useMemo(
-    () => [
-      { label: "Facebook Page", href: settings?.facebook },
-      { label: "Facebook Group", href: settings?.facebookGroup },
-      { label: "Instagram", href: settings?.instagram },
-      { label: "YouTube", href: settings?.youtube },
-      { label: "LinkedIn", href: settings?.linkedin },
-      { label: "TikTok", href: settings?.tiktok },
-      { label: "X (Twitter)", href: settings?.twitter },
-      { label: "Google Business", href: settings?.googleBusiness },
-      { label: "WhatsApp", href: waLink },
-    ],
-    [settings, waLink]
-  );
-
-  return (
-    <div className="bg-slate-50">
-      {/* HERO SECTION - ENHANCED */}
-      <section className="bg-gradient-to-b from-slate-950 to-slate-900 text-white relative overflow-hidden">
-        {/* Background Pattern */}
-        <div className="absolute inset-0 opacity-10">
-          <div className="absolute top-0 left-0 w-64 h-64 bg-emerald-500 rounded-full filter blur-3xl"></div>
-          <div className="absolute bottom-0 right-0 w-96 h-96 bg-blue-500 rounded-full filter blur-3xl"></div>
+        {/* content */}
+        <div className="relative mx-auto max-w-6xl px-4 h-full flex items-center justify-center text-center">
+          <div>
+            <h1 className="font-serif text-4xl sm:text-5xl font-semibold text-white">
+              About Us
+            </h1>
+            <div className="mt-4 text-sm text-white/80">
+              <Link to="/" className="hover:text-white">
+                Home
+              </Link>
+              <span className="mx-2">/</span>
+              <span className="text-sky-300 font-medium">About Us</span>
+            </div>
+          </div>
         </div>
-        
-        <div className="mx-auto max-w-6xl px-4 py-12 md:py-16 relative z-10 mt-4 md:mt-10">
-          <div className="grid gap-8 md:grid-cols-2 items-start">
-            {/* LEFT COLUMN - ENHANCED */}
-            <div className="max-w-2xl">
-              <div className="inline-flex items-center gap-2 rounded-full bg-white/10 px-3 py-1 text-sm backdrop-blur-sm">
-                <IconDot />
-                <span>About Arshi Global</span>
-                <span className="text-white/60">• Since 2020</span>
-              </div>
+      </div>
 
-              <h1 className="mt-4 text-3xl md:text-5xl font-extrabold leading-tight">
-                Arshi Global
-              </h1>
+      {/* ================= WHO WE ARE ================= */}
+      <div className="mx-auto max-w-7xl px-4 py-14 sm:py-16">
+        {/* small label */}
+        <div className="flex items-center justify-center gap-3">
+          <span className="h-[2px] w-10 bg-sky-500/70" />
+          <p className="text-[11px] font-semibold tracking-[0.28em] text-sky-600">
+            WHO WE ARE
+          </p>
+          <span className="h-[2px] w-10 bg-sky-500/70" />
+        </div>
 
-              <p className="mt-3 text-white/80 text-base md:text-lg leading-relaxed">
-                🌍 Your Premier Partner for <span className="text-emerald-400 font-semibold">Visa, Job & Travel</span> Solutions — 
-                Bridging Dreams to Reality with Professional Excellence and Transparent Guidance.
-              </p>
-
-              {/* Enhanced Bangla Card */}
-              <div className="mt-5 rounded-2xl border border-white/10 bg-white/5 backdrop-blur-sm p-5">
-                <p className="text-sm md:text-base font-semibold text-white leading-relaxed">
-                  <span className="text-emerald-400 text-lg">🕌 আসসালামু আলাইকুম</span> — 
-                  আপনার বিশ্বস্ত ভ্রমণ ও ক্যারিয়ার পার্টনার
-                </p>
-                <p className="mt-2 text-white/70 text-sm">
-                  আমরা বিশ্বাস করি, সঠিক দিকনির্দেশনা ও পেশাদার সহায়তা পেলে আপনার স্বপ্ন পৌঁছাবে সফলতার চূড়ায়। 
-                  <span className="font-bold text-emerald-400"> Arshi Global</span> নিয়ে এসেছে ভিসা, জব ও ট্রাভেলের জন্য সম্পূর্ণ আইনসম্মত ও স্বচ্ছ সেবা।
-                </p>
-
-                <div className="mt-4 flex flex-wrap gap-2">
-                  {[
-                    "✈️ ট্যুর ও ট্রাভেল",
-                    "🎓 স্টাডি ভিসা",
-                    "💼 ওয়ার্ক পারমিট",
-                    "📄 ডকুমেন্টেশন",
-                    "🇪🇺 ইউরোপ কনসাল্টেন্সি",
-                    "✅ আইনসম্মত প্রক্রিয়া",
-                  ].map((t) => (
-                    <span
-                      key={t}
-                      className="rounded-full bg-white/10 px-3 py-1 text-xs md:text-sm text-white/90 hover:bg-emerald-600/30 transition"
-                    >
-                      {t}
-                    </span>
-                  ))}
-                </div>
-
-                <div className="mt-4 flex items-center gap-4">
-                  <div className="flex -space-x-2">
-                    {[1,2,3,4].map((i) => (
-                      <div key={i} className="w-8 h-8 rounded-full bg-emerald-500/20 border-2 border-white/20 flex items-center justify-center text-xs">
-                        ✓
-                      </div>
-                    ))}
-                  </div>
-                  <p className="text-sm text-white/80">১০০০+ সফল ক্লায়েন্ট</p>
-                </div>
-              </div>
-
-              <div className="mt-6 flex flex-wrap gap-3">
-                <Link
-                  to="/contact"
-                  className="rounded-xl bg-emerald-600 px-6 py-3 font-semibold hover:bg-emerald-700 transition transform hover:scale-105"
-                >
-                  📞 Free Consultation
-                </Link>
-
-                {waLink ? (
-                  <a
-                    href={waLink}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="rounded-xl bg-white/10 px-6 py-3 font-semibold hover:bg-white/15 transition backdrop-blur-sm border border-white/20"
-                  >
-                    💬 WhatsApp Now
-                  </a>
-                ) : null}
-              </div>
-
-              {err ? (
-                <div className="mt-6 rounded-xl border border-rose-200 bg-rose-50 px-4 py-3 text-rose-800 text-sm font-semibold">
-                  {err}
-                </div>
-              ) : null}
+        <div className="mt-10 grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-14 items-center">
+          {/* left image card */}
+          <div className="relative">
+            <div className="rounded-2xl overflow-hidden shadow-[0_16px_50px_-35px_rgba(15,23,42,0.7)]">
+              {/* you can replace this image with your own */}
+              <img
+                src="https://images.unsplash.com/photo-1521791136064-7986c2920216?q=80&w=1600&auto=format&fit=crop"
+                alt="Arshi Global"
+                className="w-full h-[320px] sm:h-[360px] object-cover"
+                loading="lazy"
+              />
             </div>
 
-            {/* RIGHT COLUMN - ENHANCED CONTACT INFO */}
-            <div className="space-y-4">
-              <div className="rounded-2xl border border-white/10 bg-white/5 backdrop-blur-sm p-5">
-                <div className="flex items-center gap-2 text-sm text-white/80">
-                  <span className="w-2 h-2 bg-emerald-400 rounded-full animate-pulse"></span>
-                  Quick Contact
-                </div>
-                <div className="mt-3 space-y-3 text-sm">
-                  <div className="flex items-center gap-3 text-white">
-                    <span className="text-emerald-400">📞</span>
-                    <span className="font-medium">{settings?.phone || "+880 1316-889944"}</span>
-                  </div>
-                  <div className="flex items-center gap-3 text-white">
-                    <span className="text-emerald-400">📧</span>
-                    <span>{settings?.email || "arshitraveldhaka@gmail.com"}</span>
-                  </div>
-                  <div className="flex items-center gap-3 text-white/80">
-                    <span className="text-emerald-400">📍</span>
-                    <span>{settings?.address || "924-A, BNS CENTER, SECTOR-07, UTTARA, Dhaka"}</span>
-                  </div>
-                </div>
+            {/* badge like screenshot */}
+            <div className="absolute left-6 top-6 rounded-2xl bg-gradient-to-br from-sky-500 to-indigo-600 text-white px-6 py-5 shadow-lg">
+              <div className="text-3xl font-extrabold leading-none">2020</div>
+              <div className="mt-1 text-sm opacity-95">Since</div>
+            </div>
+          </div>
+       {/* right content */}
+<div className="max-w-xl">
+  <h2 className="font-serif text-2xl md:text-3xl font-semibold text-slate-900 leading-snug">
+    Committed to Your Global Success
+  </h2>
+
+  {/* first paragraph */}
+  <p className="mt-3 text-slate-600 leading-6 text-[14.5px]">
+    <span className="font-semibold text-slate-900">
+      Arshi Global
+    </span>{" "}
+    — Your Premier Partner for{" "}
+    <span className="font-semibold text-emerald-600">
+      Visa, Job &amp; Travel
+    </span>{" "}
+    assistance firm based in Uttara, Dhaka. We provide comprehensive
+    support for tourism, education, and overseas employment.
+  </p>
+
+  {/* second paragraph */}
+  <p className="mt-3 text-slate-600 leading-6 text-[14.5px]">
+    What sets us apart is our commitment to{" "}
+    <span className="font-medium text-slate-900">
+      transparency, integrity, and personalized service
+    </span>
+    . Every client receives tailored guidance based on their unique
+    goals and eligibility.
+  </p>
+
+  {/* subtle divider */}
+  <div className="mt-4 h-[2px] w-12 bg-gradient-to-r from-sky-500 to-emerald-500 rounded-full" />
+
+  {/* features */}
+  <div className="mt-5 grid grid-cols-1 sm:grid-cols-2 gap-3">
+    <Feature text="Certified Consultants" />
+    <Feature text="Global Network" />
+    <Feature text="Personalized Service" />
+    <Feature text="Transparent Process" />
+  </div>
+</div>
+        </div>
+
+        {/* divider */}
+        <div className="mt-12 sm:mt-14 h-px bg-slate-200" />
+
+        {/* ================= Mission / Vision cards ================= */}
+        <div className="mt-10 grid grid-cols-1 md:grid-cols-2 gap-6">
+          <InfoCard
+            title="Our Mission"
+            icon={<Target className="w-5 h-5 text-sky-600" strokeWidth={2.2} />}
+            iconBg="bg-sky-100"
+            content={
+              <>
+                আমরা বিশ্বস্ততা, সঠিক দিকনির্দেশনা ও পেশাদার সহায়তায় আপনার
+                স্বপ্ন পূরণে পাশে থাকি।{" "}
+                <span className="font-semibold">Arshi Global</span> এর লক্ষ্য—
+                ভিসা, জব ও ট্রাভেলে স্বচ্ছ, নির্ভরযোগ্য এবং রেজাল্ট-ভিত্তিক
+                সাপোর্ট প্রদান করা।
+              </>
+            }
+          />
+
+          <InfoCard
+            title="Our Vision"
+            icon={<Eye className="w-5 h-5 text-indigo-600" strokeWidth={2.2} />}
+            iconBg="bg-indigo-100"
+            content={
+              <>
+                বাংলাদেশ থেকে বিশ্বজুড়ে ভিসা, জব ও ট্রাভেল সল্যুশনে একটি
+                বিশ্বস্ত গ্লোবাল ব্র্যান্ড হওয়া—যেখানে প্রতিটি ক্লায়েন্ট পায়
+                দ্রুত সার্ভিস, পূর্ণ স্বচ্ছতা এবং সফল রেজাল্ট।
+              </>
+            }
+          />
+        </div>
+      </div>
+      {/* ================= NEW: ABOUT DETAILS / WHY CHOOSE US ================= */}
+      <div className="mt-12 sm:mt-14">
+        <div className="flex items-center justify-center gap-3">
+          <span className="h-[2px] w-10 bg-sky-500/70" />
+          <p className="text-[11px] font-semibold tracking-[0.28em] text-sky-600">
+            WHY ARSHI GLOBAL
+          </p>
+          <span className="h-[2px] w-10 bg-sky-500/70" />
+        </div>
+
+        <h3 className="mt-4 text-center font-serif text-3xl sm:text-4xl font-semibold text-slate-900">
+          A Smarter, Safer Way to Plan Your Visa, Job & Travel
+        </h3>
+
+        <p className="mx-auto mt-4 max-w-3xl text-center text-sm sm:text-base leading-7 text-slate-600">
+          <span className="font-semibold text-slate-900">Arshi Global</span> কাজ
+          করে একটাই লক্ষ্য নিয়ে—আপনার আবেদন/প্রসেস যেন হয়{" "}
+          <span className="font-semibold text-emerald-600">
+            সঠিক, স্বচ্ছ এবং সময়মতো
+          </span>
+          । আমরা প্রতিটি ক্লায়েন্টের প্রোফাইল বুঝে “one-size-fits-all” না করে{" "}
+          <span className="font-semibold text-slate-900">
+            personalized guidance
+          </span>{" "}
+          দিই, যাতে ভুল কমে, রেজাল্ট ভালো হয় এবং সিদ্ধান্ত নিতে সহজ হয়।
+        </p>
+
+        <div className="mt-10 grid grid-cols-1 lg:grid-cols-2 gap-6">
+          {/* Left: What we do */}
+          <div className="group rounded-2xl bg-white/80 backdrop-blur p-8 ring-1 ring-slate-200 shadow-[0_16px_55px_-38px_rgba(15,23,42,0.55)] transition hover:-translate-y-1 hover:shadow-[0_24px_70px_-42px_rgba(15,23,42,0.65)]">
+            {/* top accent */}
+            <div className="h-[3px] w-14 rounded-full bg-gradient-to-r from-sky-500 to-indigo-500" />
+
+            <div className="mt-5 flex items-start gap-4">
+              <div className="h-12 w-12 rounded-2xl bg-sky-100 text-sky-600 flex items-center justify-center">
+                {/* icon */}
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
+                  <path
+                    d="M4 7h16M7 4h10M7 20h10M4 17h16"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                  />
+                </svg>
               </div>
 
-              <div className="rounded-2xl border border-white/10 bg-white/5 backdrop-blur-sm p-5">
-                <div className="text-sm text-white/80">🕒 Office Hours</div>
-                <div className="mt-2">
-                  <div className="flex items-center justify-between text-white">
-                    <span>Saturday–Thursday</span>
-                    <span className="font-semibold">10:00 AM – 7:00 PM</span>
-                  </div>
-                  <div className="flex items-center justify-between text-white/70 mt-1">
-                    <span>Friday</span>
-                    <span className="text-rose-400">Closed</span>
-                  </div>
-                </div>
-              </div>
+              <div className="flex-1">
+                <h4 className="font-serif text-2xl font-semibold text-slate-900">
+                  What We Do
+                </h4>
+                <p className="mt-3 text-sm sm:text-[15px] leading-7 text-slate-600">
+                  Visa, Job &amp; Travel—এই তিনটি সল্যুশনে আমরা end-to-end
+                  সাপোর্ট দিই। ডকুমেন্ট রেডি করা, প্রোফাইল রিভিউ, প্রসেসিং
+                  গাইডলাইন, এবং প্রয়োজনীয় কনসাল্টেশন—সবকিছু একসাথে, এক জায়গায়।
+                </p>
 
-              <div className="rounded-2xl border border-white/10 bg-white/5 backdrop-blur-sm p-5">
-                <div className="text-sm text-white/80">✨ Why Choose Arshi Global?</div>
-                <ul className="mt-3 space-y-2 text-sm text-white/90">
-                  {[
-                    "✅ 8+ Years of Experience",
-                    "✅ 1000+ Successful Visa Applications",
-                    "✅ Direct Consultation with Experts",
-                    "✅ Transparent Fee Structure",
-                    "✅ Document Verification Service",
-                    "✅ Post-Visa Support",
-                  ].map((t) => (
-                    <li key={t} className="flex gap-2">
-                      <span className="text-emerald-400">{t.split(' ')[0]}</span>
-                      <span>{t.substring(2)}</span>
-                    </li>
-                  ))}
+                {/* bullets */}
+                <ul className="mt-6 grid grid-cols-1 sm:grid-cols-2 gap-y-3 gap-x-6">
+                  <Bullet text="Profile evaluation & eligibility guidance" />
+                  <Bullet text="Document checklist & preparation support" />
+                  <Bullet text="Application guidance with transparency" />
+                  <Bullet text="Post-approval assistance & next steps" />
                 </ul>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
 
-      {/* MAIN CONTENT - ENHANCED */}
-      <section className="mx-auto max-w-7xl px-4 py-12">
-        <div className="grid lg:grid-cols-3 gap-8">
-          {/* Main column */}
-          <div className="lg:col-span-2 space-y-6">
-            {/* Who we are - ENHANCED */}
-            <Card>
-              <div className="p-6 md:p-8">
-                <h2 className="text-xl md:text-2xl font-extrabold text-slate-900 flex items-center gap-2">
-                  <span className="w-1 h-6 bg-emerald-500 rounded-full"></span>
-                  Who We Are
-                </h2>
-
-                <p className="mt-4 text-slate-700 leading-relaxed">
-                  <span className="font-semibold text-emerald-700">Arshi Global</span> is a premier 
-                  visa consultancy and travel assistance firm based in the heart of <span className="font-semibold">Uttara, Dhaka</span>. 
-                  Since our establishment, we have been dedicated to providing comprehensive support for 
-                  individuals seeking to explore international opportunities through tourism, education, and employment.
-                </p>
-
-                <p className="mt-3 text-slate-700 leading-relaxed">
-                  What sets us apart is our commitment to <span className="font-semibold">transparency, integrity, 
-                  and personalized service</span>. We understand that each client's journey is unique, and we take 
-                  the time to understand your specific goals, whether you're planning a European vacation, 
-                  pursuing higher education abroad, or seeking overseas employment.
-                </p>
-
-                <div className="mt-6 grid sm:grid-cols-2 gap-4">
-                  <div className="rounded-2xl border border-slate-200 bg-slate-50 p-5 hover:shadow-md transition">
-                    <div className="flex items-center gap-2 text-sm font-bold text-slate-900">
-                      <span className="text-emerald-600 text-lg">🎯</span>
-                      Our Mission
-                    </div>
-                    <p className="mt-2 text-sm text-slate-700">
-                      To provide accessible, reliable, and ethical visa and travel guidance that empowers 
-                      individuals to achieve their international aspirations with confidence.
-                    </p>
-                  </div>
-
-                  <div className="rounded-2xl border border-slate-200 bg-slate-50 p-5 hover:shadow-md transition">
-                    <div className="flex items-center gap-2 text-sm font-bold text-slate-900">
-                      <span className="text-emerald-600 text-lg">🌟</span>
-                      Our Vision
-                    </div>
-                    <p className="mt-2 text-sm text-slate-700">
-                      To become Bangladesh's most trusted name in overseas opportunities, known for integrity, 
-                      excellence, and client success stories.
-                    </p>
-                  </div>
-                </div>
-
-                <div className="mt-6 grid sm:grid-cols-2 gap-4">
-                  <div className="rounded-2xl border border-slate-200 bg-white p-5">
-                    <div className="text-sm font-bold text-slate-900">Our Promise to You</div>
-                    <ul className="mt-3 space-y-2 text-sm text-slate-700">
-                      {[
-                        "✓ 100% transparent process with clear timelines",
-                        "✓ Professional document verification & checklist",
-                        "✓ Fast communication via WhatsApp & phone",
-                        "✓ No hidden fees or surprises",
-                        "✓ Post-application follow-up support",
-                      ].map((t) => (
-                        <li key={t} className="flex gap-2">
-                          <span className="text-emerald-600">{t.substring(0,2)}</span>
-                          <span>{t.substring(2)}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-
-                  <div className="rounded-2xl border border-slate-200 bg-white p-5">
-                    <div className="text-sm font-bold text-slate-900">Our Core Services</div>
-                    <ul className="mt-3 space-y-2 text-sm text-slate-700">
-                      {[
-                        "✓ Europe tour planning & travel support",
-                        "✓ Study visa counseling (Schengen, UK, Canada)",
-                        "✓ Work permit & overseas job processing",
-                        "✓ Document legalization & attestation",
-                        "✓ Travel insurance assistance",
-                      ].map((t) => (
-                        <li key={t} className="flex gap-2">
-                          <span className="text-emerald-600">{t.substring(0,2)}</span>
-                          <span>{t.substring(2)}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                </div>
-              </div>
-            </Card>
-
-            {/* How we work - ENHANCED */}
-            <Card>
-              <div className="p-6 md:p-8">
-                <h3 className="text-lg md:text-xl font-extrabold text-slate-900 flex items-center gap-2">
-                  <span className="w-1 h-5 bg-emerald-500 rounded-full"></span>
-                  Our Step-by-Step Process
-                </h3>
-                <p className="mt-2 text-slate-600">
-                  We've designed a simple, structured approach to make your journey stress-free and successful.
-                </p>
-
-                <div className="mt-6 grid sm:grid-cols-2 gap-4">
-                  {[
-                    {
-                      step: "01",
-                      title: "Initial Consultation",
-                      desc: "We sit down with you (in-person or via call) to understand your goals, check eligibility, and discuss the best options for your situation."
-                    },
-                    {
-                      step: "02",
-                      title: "Document Preparation",
-                      desc: "Our experts provide a detailed checklist, review your documents, and guide you through any corrections or additional requirements."
-                    },
-                    {
-                      step: "03",
-                      title: "Application Processing",
-                      desc: "We help you complete applications accurately, prepare for interviews if needed, and ensure everything is submitted correctly."
-                    },
-                    {
-                      step: "04",
-                      title: "Follow-up & Support",
-                      desc: "We stay connected throughout the process, providing updates and answering questions until you reach your destination."
-                    }
-                  ].map(({ step, title, desc }) => (
-                    <div key={step} className="rounded-2xl border border-slate-200 bg-white p-5 hover:shadow-md transition group">
-                      <div className="flex items-center gap-3">
-                        <span className="text-2xl font-black text-emerald-600 group-hover:scale-110 transition">
-                          {step}
-                        </span>
-                        <span className="font-bold text-slate-900">{title}</span>
-                      </div>
-                      <p className="mt-3 text-sm text-slate-700">{desc}</p>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </Card>
-
-            {/* Visit office - ENHANCED */}
-            <Card>
-              <div className="p-6 md:p-8">
-                <h3 className="text-lg md:text-xl font-extrabold text-slate-900 flex items-center gap-2">
-                  <span className="w-1 h-5 bg-emerald-500 rounded-full"></span>
-                  Visit Our Office
-                </h3>
-                <p className="mt-2 text-slate-600">
-                  We're conveniently located in Uttara, Dhaka. Come visit us for a face-to-face consultation.
-                </p>
-
-                <div className="mt-6 grid sm:grid-cols-2 gap-4">
-                  <div className="rounded-2xl border border-slate-200 bg-white p-5">
-                    <div className="flex items-center gap-2 font-bold text-slate-900">
-                      <span className="text-emerald-600">🏢</span>
-                      Arshi Global Headquarters
-                    </div>
-                    <div className="mt-3 space-y-2 text-sm text-slate-700">
-                      <div className="flex gap-2">
-                        <span className="text-emerald-600">📍</span>
-                        <span>924-A, BNS CENTER, SECTOR-07, UTTARA, Dhaka-1230</span>
-                      </div>
-                      <div className="flex gap-2">
-                        <span className="text-emerald-600">📞</span>
-                        <span>+880 1316-889944</span>
-                      </div>
-                      <div className="flex gap-2">
-                        <span className="text-emerald-600">📧</span>
-                        <span>arshitraveldhaka@gmail.com</span>
-                      </div>
-                      <div className="flex gap-2">
-                        <span className="text-emerald-600">🌐</span>
-                        <span>www.arshi-global.com</span>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="rounded-2xl border border-slate-200 bg-white p-5">
-                    <div className="flex items-center gap-2 font-bold text-slate-900">
-                      <span className="text-emerald-600">⏰</span>
-                      Business Hours
-                    </div>
-                    <div className="mt-3 space-y-2 text-sm">
-                      <div className="flex justify-between">
-                        <span>Saturday - Thursday</span>
-                        <span className="font-semibold">10:00 AM – 7:00 PM</span>
-                      </div>
-                      <div className="flex justify-between">
-                        <span>Friday</span>
-                        <span className="text-rose-600 font-semibold">Closed</span>
-                      </div>
-                      <div className="mt-4 pt-4 border-t border-slate-100">
-                        <p className="text-emerald-700 font-medium">📅 Appointment recommended</p>
-                        <p className="text-xs text-slate-500 mt-1">Walk-ins welcome, but booking ensures dedicated time with our experts</p>
-                      </div>
-                    </div>
-
-                    <div className="mt-4 flex flex-wrap gap-3">
-                      <Link
-                        to="/contact"
-                        className="rounded-xl bg-slate-900 px-4 py-2 text-white font-semibold hover:bg-slate-800 transition text-sm"
-                      >
-                        Book Appointment
-                      </Link>
-
-                      {waLink ? (
-                        <a
-                          href={waLink}
-                          target="_blank"
-                          rel="noreferrer"
-                          className="rounded-xl border border-slate-200 bg-white px-4 py-2 font-semibold hover:bg-slate-50 transition text-sm"
-                        >
-                          Message on WhatsApp
-                        </a>
-                      ) : null}
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </Card>
-
-            {/* Testimonials Section - NEW */}
-            <Card>
-              <div className="p-6 md:p-8">
-                <h3 className="text-lg md:text-xl font-extrabold text-slate-900 flex items-center gap-2">
-                  <span className="w-1 h-5 bg-emerald-500 rounded-full"></span>
-                  Client Success Stories
-                </h3>
-                <p className="mt-2 text-slate-600">
-                  Don't just take our word for it — hear from some of our successful clients.
-                </p>
-
-                <div className="mt-6 grid sm:grid-cols-2 gap-4">
-                  {[
-                    {
-                      name: "Rafiqul Islam",
-                      country: "Germany",
-                      type: "Study Visa",
-                      quote: "Arshi Global made my dream of studying in Germany possible. Their team guided me through every step of the visa process."
-                    },
-                    {
-                      name: "Nusrat Jahan",
-                      country: "Italy",
-                      type: "Tourist Visa",
-                      quote: "I was nervous about my first European tour, but their team handled everything professionally. Highly recommended!"
-                    },
-                    {
-                      name: "Hasan Mahmud",
-                      country: "UK",
-                      type: "Work Permit",
-                      quote: "Got my UK work permit smoothly. The document checklist saved me from many common mistakes."
-                    },
-                    {
-                      name: "Tahmina Akter",
-                      country: "Canada",
-                      type: "Study Visa",
-                      quote: "Their consultation was spot-on. They helped me prepare for my visa interview and I got approved!"
-                    }
-                  ].map((client, idx) => (
-                    <div key={idx} className="rounded-2xl border border-slate-200 bg-slate-50 p-4">
-                      <div className="flex items-center gap-2">
-                        <div className="w-10 h-10 rounded-full bg-emerald-100 flex items-center justify-center text-emerald-700 font-bold">
-                          {client.name.charAt(0)}
-                        </div>
-                        <div>
-                          <div className="font-semibold text-slate-900">{client.name}</div>
-                          <div className="text-xs text-emerald-600">{client.country} • {client.type}</div>
-                        </div>
-                      </div>
-                      <p className="mt-3 text-sm text-slate-700 italic">"{client.quote}"</p>
-                      <div className="mt-2 flex text-yellow-400">★★★★★</div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </Card>
-          </div>
-
-          {/* Sidebar - ENHANCED */}
-          <div className="space-y-6">
-            <Card>
-              <div className="p-6">
-                <div className="font-extrabold text-slate-900">Connect With Us</div>
-                <div className="mt-4 grid gap-3">
-                  {socials.map((s, i) => (
-                    <SocialLink key={i} href={s.href} label={s.label} />
-                  ))}
-                </div>
-              </div>
-            </Card>
-
-            <Card>
-              <div className="p-6">
-                <div className="font-extrabold text-slate-900">Quick Links</div>
-                <div className="mt-4 grid gap-3">
-                  <Link
-                    to="/jobs"
-                    className="rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm font-semibold hover:bg-slate-50 flex items-center justify-between"
-                  >
-                    <span>📋 View Jobs</span>
-                    <span className="text-slate-400">→</span>
-                  </Link>
-                  <Link
-                    to="/services"
-                    className="rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm font-semibold hover:bg-slate-50 flex items-center justify-between"
-                  >
-                    <span>🛠️ Our Services</span>
-                    <span className="text-slate-400">→</span>
-                  </Link>
+                <div className="mt-7">
                   <Link
                     to="/contact"
-                    className="rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm font-semibold hover:bg-slate-50 flex items-center justify-between"
+                    className="inline-flex items-center gap-2 rounded-xl bg-sky-600 px-5 py-2.5 text-sm font-semibold text-white hover:bg-sky-700 transition"
                   >
-                    <span>📞 Contact</span>
-                    <span className="text-slate-400">→</span>
-                  </Link>
-                  <Link
-                    to="/visa-guide"
-                    className="rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm font-semibold hover:bg-slate-50 flex items-center justify-between"
-                  >
-                    <span>📘 Visa Guide</span>
-                    <span className="text-slate-400">→</span>
+                    Talk to a Consultant <span className="text-base">→</span>
                   </Link>
                 </div>
               </div>
-            </Card>
+            </div>
+          </div>
 
-            <Card>
-              <div className="p-6">
-                <div className="font-extrabold text-slate-900">Why Clients Trust Us</div>
-                <div className="mt-4 space-y-3">
-                  {[
-                    { icon: "⭐", text: "8+ Years Experience" },
-                    { icon: "✅", text: "1000+ Successful Cases" },
-                    { icon: "🔒", text: "100% Confidential" },
-                    { icon: "💬", text: "Bengali & English Support" },
-                    { icon: "⚡", text: "Fast Processing" },
-                  ].map((item, idx) => (
-                    <div key={idx} className="flex items-center gap-2 text-sm">
-                      <span className="text-emerald-600">{item.icon}</span>
-                      <span>{item.text}</span>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </Card>
+          {/* Right: Process (timeline style) */}
+          <div className="group rounded-2xl bg-white/80 backdrop-blur p-8 ring-1 ring-slate-200 shadow-[0_16px_55px_-38px_rgba(15,23,42,0.55)] transition hover:-translate-y-1 hover:shadow-[0_24px_70px_-42px_rgba(15,23,42,0.65)]">
+            {/* top accent */}
+            <div className="h-[3px] w-14 rounded-full bg-gradient-to-r from-emerald-500 to-sky-500" />
 
-            <Card>
-              <div className="p-6 bg-gradient-to-br from-emerald-50 to-white">
-                <div className="font-extrabold text-emerald-900">Popular Destinations</div>
-                <div className="mt-4 grid grid-cols-2 gap-2">
-                  {[
-                    "🇩🇪 Germany",
-                    "🇮🇹 Italy",
-                    "🇫🇷 France",
-                    "🇪🇸 Spain",
-                    "🇬🇧 UK",
-                    "🇨🇦 Canada",
-                    "🇦🇪 UAE",
-                    "🇬🇷 Greece",
-                  ].map((country) => (
-                    <div key={country} className="text-sm bg-white rounded-lg px-3 py-2 border border-emerald-100">
-                      {country}
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </Card>
-
-            <div className="rounded-2xl border border-emerald-200 bg-gradient-to-br from-emerald-50 to-emerald-100 p-6">
-              <div className="text-lg font-extrabold text-emerald-900">📱 Need Immediate Help?</div>
-              <div className="mt-2 text-sm text-emerald-800">
-                Our visa experts are available on WhatsApp for quick queries and document checks.
+            <div className="mt-5 flex items-start gap-4">
+              <div className="h-12 w-12 rounded-2xl bg-emerald-100 text-emerald-600 flex items-center justify-center">
+                {/* icon */}
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
+                  <path
+                    d="M12 6v6l4 2"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                  <path
+                    d="M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                  />
+                </svg>
               </div>
 
-              <div className="mt-4 space-y-3">
-                <div className="flex items-center gap-2 text-sm text-emerald-800">
-                  <span>⚡</span>
-                  <span>Average response: &lt; 30 minutes</span>
-                </div>
-                <div className="flex items-center gap-2 text-sm text-emerald-800">
-                  <span>📄</span>
-                  <span>Free document pre-check</span>
+              <div className="flex-1">
+                <h4 className="font-serif text-2xl font-semibold text-slate-900">
+                  Simple Working Process
+                </h4>
+                <p className="mt-3 text-sm sm:text-[15px] leading-7 text-slate-600">
+                  আপনার জন্য পুরো প্রসেসটাকে আমরা ছোট ছোট স্টেপে সাজাই—যাতে
+                  confusion কমে, সময় বাঁচে এবং সিদ্ধান্ত নেওয়া সহজ হয়।
+                </p>
+
+                {/* timeline */}
+                <div className="mt-7 relative">
+                  {/* line */}
+                  <div className="absolute left-[18px] top-2 bottom-2 w-px bg-slate-200" />
+
+                  <div className="space-y-6">
+                    <TimelineStep
+                      no="01"
+                      title="Consultation"
+                      desc="আপনার লক্ষ্য ও প্রোফাইল বুঝে একটি পরিষ্কার রোডম্যাপ।"
+                      color="sky"
+                    />
+                    <TimelineStep
+                      no="02"
+                      title="Document Review"
+                      desc="Checklist + verification—যাতে ভুল কমে এবং প্রস্তুতি strong হয়।"
+                      color="indigo"
+                    />
+                    <TimelineStep
+                      no="03"
+                      title="Application Guidance"
+                      desc="সঠিকভাবে apply/submit করার step-by-step গাইডলাইন।"
+                      color="emerald"
+                    />
+                    <TimelineStep
+                      no="04"
+                      title="Follow-up Support"
+                      desc="পরবর্তী স্টেপ, প্রয়োজনীয় কাগজ এবং আপডেট—সবসময় পাশে থাকা।"
+                      color="violet"
+                    />
+                  </div>
                 </div>
               </div>
-
-              {waLink ? (
-                <a
-                  href={waLink}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="mt-4 inline-flex w-full justify-center rounded-xl bg-emerald-600 px-4 py-3 text-white font-semibold hover:bg-emerald-700 transition transform hover:scale-105"
-                >
-                  <span className="flex items-center gap-2">
-                    <span>💬</span>
-                    WhatsApp Now
-                  </span>
-                </a>
-              ) : (
-                <Link
-                  to="/contact"
-                  className="mt-4 inline-flex w-full justify-center rounded-xl bg-emerald-600 px-4 py-3 text-white font-semibold hover:bg-emerald-700 transition"
-                >
-                  Contact us
-                </Link>
-              )}
             </div>
           </div>
         </div>
-      </section>
+      </div>
+      {/* Stat highlight (optional, adds credibility) */}
+      {/* <div className="flex items-center justify-between bg-blue-600 text-white px-6 py-4 rounded-xl">
+              <div className="text-left">
+                <p className="text-2xl font-bold">5000+</p>
+                <p className="text-xs opacity-90">Successful visas</p>
+              </div>
+              <div className="h-8 w-px bg-white/30"></div>
+              <div className="text-left">
+                <p className="text-2xl font-bold">98%</p>
+                <p className="text-xs opacity-90">Client satisfaction</p>
+              </div>
+              <div className="h-8 w-px bg-white/30"></div>
+              <div className="text-left">
+                <p className="text-2xl font-bold">15+</p>
+                <p className="text-xs opacity-90">Years experience</p>
+              </div>
+            </div> */}
+    </section>
+  );
+}
+function TimelineStep({ no, title, desc, color = "sky" }) {
+  const colorMap = {
+    sky: "bg-sky-600",
+    indigo: "bg-indigo-600",
+    emerald: "bg-emerald-600",
+    violet: "bg-violet-600",
+  };
 
-      {/* Footer Banner - NEW */}
-      <section className="bg-slate-900 text-white py-12">
-        <div className="mx-auto max-w-4xl px-4 text-center">
-          <h2 className="text-2xl md:text-3xl font-bold">Ready to Start Your Journey?</h2>
-          <p className="mt-3 text-white/80">
-            Whether you're planning a vacation, pursuing education abroad, or seeking overseas employment — 
-            we're here to guide you every step of the way.
-          </p>
-          <div className="mt-6 flex flex-wrap gap-4 justify-center">
-            <Link
-              to="/contact"
-              className="rounded-xl bg-emerald-600 px-6 py-3 font-semibold hover:bg-emerald-700 transition"
-            >
-              Get Free Consultation
-            </Link>
-            <Link
-              to="/services"
-              className="rounded-xl bg-white/10 px-6 py-3 font-semibold hover:bg-white/20 transition border border-white/20"
-            >
-              Explore Services
-            </Link>
-          </div>
-          <p className="mt-6 text-sm text-white/60">
-            📍 924-A, BNS CENTER, SECTOR-07, UTTARA, Dhaka | 📞 +880 1316-889944 | 📧 arshitraveldhaka@gmail.com
-          </p>
+  return (
+    <div className="relative flex gap-4">
+      <div
+        className={`h-9 w-9 flex-shrink-0 rounded-xl ${colorMap[color]} text-white font-extrabold flex items-center justify-center shadow`}
+      >
+        {no}
+      </div>
+      <div className="pt-0.5">
+        <p className="text-sm font-semibold text-slate-900">{title}</p>
+        <p className="mt-1 text-sm text-slate-600 leading-6">{desc}</p>
+      </div>
+    </div>
+  );
+}
+function Feature({ text }) {
+  return (
+    <div className="flex items-center gap-3 rounded-xl p-3 ">
+      <div className="h-7 w-7 rounded-xl bg-sky-100 flex items-center justify-center">
+        <HiCheck className="text-sky-600 text-lg" />
+      </div>
+      <p className="text-sm font-semibold text-slate-800">{text}</p>
+    </div>
+  );
+}
+function Bullet({ text }) {
+  return (
+    <li className="flex items-start gap-3 text-sm text-slate-700">
+      <span className="mt-1 inline-flex h-5 w-5 items-center justify-center rounded-full bg-emerald-500">
+        <HiCheck className="text-white text-[14px]" />
+      </span>
+      <span className="leading-6">{text}</span>
+    </li>
+  );
+}
+
+function Stat({ value, label }) {
+  return (
+    <div className="rounded-xl bg-white/10 px-4 py-3">
+      <p className="text-xs uppercase tracking-wider text-white/70">{value}</p>
+      <p className="mt-1 text-lg font-bold">{label}</p>
+    </div>
+  );
+}
+
+function StepRow({ no, title, desc }) {
+  return (
+    <div className="flex gap-4">
+      <div className="h-10 w-10 flex-shrink-0 rounded-xl bg-sky-100 text-sky-700 font-extrabold flex items-center justify-center">
+        {no}
+      </div>
+      <div>
+        <p className="text-sm font-semibold text-slate-900">{title}</p>
+        <p className="text-sm text-slate-600 leading-6">{desc}</p>
+      </div>
+    </div>
+  );
+}
+function InfoCard({ title, content, icon, iconBg }) {
+  return (
+    <div className="rounded-2xl bg-white p-7 ring-1 ring-slate-200 shadow-[0_14px_40px_-28px_rgba(15,23,42,0.45)] hover:-translate-y-1 transition">
+      <div className="flex items-center gap-3">
+        <div
+          className={`h-10 w-10 rounded-xl ${iconBg} flex items-center justify-center`}
+        >
+          {icon}
         </div>
-      </section>
+        <h3 className="font-serif text-xl font-semibold text-slate-900">
+          {title}
+        </h3>
+      </div>
+
+      <p className="mt-4 text-sm leading-7 text-slate-600">{content}</p>
     </div>
   );
 }

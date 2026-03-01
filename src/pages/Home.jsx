@@ -38,6 +38,10 @@ import AboutVideo from "../components/ui/AboutVideo";
 import BrowseLocations from "../components/ui/BrowseLocations";
 import AroundTheWorld from "../components/ui/AroundTheWorld";
 import PromoBanner from "../components/PromoBanner";
+import ServicesCarouselSection from "../components/ui/ServicesCarouselSection";
+import HowItWorks from "../components/ui/HowItWorks";
+import ServicesSection from "../components/ui/ServicesSection";
+import Contact from "./Contact";
 
 export default function Home() {
   const [services, setServices] = useState([]);
@@ -184,12 +188,13 @@ export default function Home() {
 
   return (
     <div>
-     
       <HomeCarowselBanner />
       <BrowseLocations />
       <TourismHero />
       <FlightHotelServices />
-      <section className="py-16 bg-gradient-to-b from-gray-50 to-white relative overflow-hidden">
+      <ServicesSection />
+      {/* <ServicesCarouselSection services={services} /> */}
+      {/* <section className="py-16 bg-gradient-to-b from-gray-50 to-white relative overflow-hidden">
         <div className="absolute inset-0 overflow-hidden">
           <motion.div
             animate={{
@@ -335,19 +340,15 @@ export default function Home() {
             </Link>
           </motion.div>
         </div>
-      </section>
- <WhyChooseUs />
-    <FollowAdventureSection />
+      </section> */}
+      <HowItWorks />
+      <WhyChooseUs />
+      <FollowAdventureSection />
       <AroundTheWorld />
-       <AboutVideo />
+      <AboutVideo />
       <StatsSection />
-     
-   
-    
-     
       {/* <ServicesThreeCards /> */}
       {/* <AboutSection /> */}
-
       {/* Jobs Section - Redesigned */}
       {/* <section className="py-16 bg-gradient-to-b from-white to-gray-50 relative overflow-hidden">
         <div className="absolute inset-0 overflow-hidden">
@@ -500,6 +501,7 @@ export default function Home() {
       <Section title="FAQ" subtitle="Common questions from clients.">
         <FaqAccordion items={faqs} />
       </Section>
+      <Contact />
     </div>
   );
 }
