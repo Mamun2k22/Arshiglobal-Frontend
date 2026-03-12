@@ -191,7 +191,7 @@ export default function Home() {
       <HomeCarowselBanner />
       <BrowseLocations />
       <TourismHero />
-      <FlightHotelServices />
+      {/* <FlightHotelServices /> */}
       <ServicesSection />
       {/* <ServicesCarouselSection services={services} /> */}
       {/* <section className="py-16 bg-gradient-to-b from-gray-50 to-white relative overflow-hidden">

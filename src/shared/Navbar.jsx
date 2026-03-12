@@ -61,7 +61,7 @@ export default function Navbar() {
 
   const waLink = useMemo(() => {
     const num = s?.whatsapp ? String(s.whatsapp).replace(/\D/g, "") : "";
-    return num ? `https://wa.me/${num}` : "https://wa.me/8801316889942";
+    return num ? `https://wa.me/${num}` : "https://wa.me/8801316889944";
   }, [s?.whatsapp]);
 
   useEffect(() => {
@@ -92,7 +92,7 @@ export default function Navbar() {
     setTimeout(() => setDrawerMounted(false), 220);
   };
 
-  const phoneText = s?.phone || s?.hotline || "+880 1316-889942";
+  const phoneText = s?.phone || s?.hotline || "+880 1316-889944";
 
   return (
     <>
