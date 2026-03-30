@@ -189,7 +189,7 @@ export default function Home() {
   return (
     <div>
       <HomeCarowselBanner />
-      <BrowseLocations />
+      {/* <BrowseLocations /> */}
       <TourismHero />
       {/* <FlightHotelServices /> */}
       <ServicesSection />

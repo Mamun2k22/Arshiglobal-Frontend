@@ -20,7 +20,8 @@ const Home = () => {
   return (
     <div className="">
       <Helmet>
-        <title>Arshi Global</title>
+        <title>
+Arshi Tours and Travel</title>
         <meta name="description" content="M.M trading Center" />
         <meta
           name="keywords"
@@ -30,7 +31,8 @@ const Home = () => {
       </Helmet>
       {/* Main Title */}
       <h1 className=" hidden text-lg md:text-3xl font-bold text-center mt-4 text-blue-500">
-        Zarvilla - Your Trusted Online Store
+        
+Arshi’s Tours & Travel
       </h1>
       <HeroSlider />
 
