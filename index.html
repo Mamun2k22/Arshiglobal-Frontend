@@ -5,8 +5,33 @@
 
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="google-site-verification" content="NokmK1BlV5k0w-mi0pszx6b9cfk4fMn4lMqjUb41HbI" />
+
+    <!-- Google Search Console Verification -->
+    <meta
+      name="google-site-verification"
+      content="NokmK1BlV5k0w-mi0pszx6b9cfk4fMn4lMqjUb41HbI"
+    />
+    <meta
+      name="google-site-verification"
+      content="IK3DHZe4AqcU9h7VdtgyuZef4YHPXadACSyk9mf1wkQ"
+    />
+
     <title>Arshiglobal</title>
+
+    <!-- Google Analytics -->
+    <script
+      async
+      src="https://www.googletagmanager.com/gtag/js?id=G-H1MFMRFDDD"
+    ></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
+
+      gtag("config", "G-H1MFMRFDDD");
+    </script>
 
     <!-- Meta Pixel Code -->
     <script>
@@ -27,45 +52,25 @@
         t.src = v;
         s = b.getElementsByTagName(e)[0];
         s.parentNode.insertBefore(t, s);
-      })(window, document, "script", "https://connect.facebook.net/en_US/fbevents.js");
+      })(
+        window,
+        document,
+        "script",
+        "https://connect.facebook.net/en_US/fbevents.js"
+      );
       fbq("init", "1206239644256559");
       fbq("track", "PageView");
     </script>
-    <!-- End Meta Pixel Code -->
 
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-L5XD7KQWTE"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag() {
-        dataLayer.push(arguments);
-      }
-      gtag("js", new Date());
-      gtag("config", "G-L5XD7KQWTE");
-    </script>
-
-    <!-- Google Tag Manager -->
-    <script>
-      (function (w, d, s, l, i) {
-        w[l] = w[l] || [];
-        w[l].push({ "gtm.start": new Date().getTime(), event: "gtm.js" });
-        var f = d.getElementsByTagName(s)[0],
-          j = d.createElement(s),
-          dl = l != "dataLayer" ? "&l=" + l : "";
-        j.async = true;
-        j.src = "https://www.googletagmanager.com/gtm.js?id=" + i + dl;
-        f.parentNode.insertBefore(j, f);
-      })(window, document, "script", "dataLayer", "GTM-NHGXP3BC");
-    </script>
-    <!-- End Google Tag Manager -->
-
-    <script src="https://assets.calendly.com/assets/external/widget.js" async></script>
-
-
+    <!-- Calendly -->
+    <script
+      src="https://assets.calendly.com/assets/external/widget.js"
+      async
+    ></script>
   </head>
 
   <body>
-    <!-- ✅ GTM noscript should be the very first thing inside <body> -->
+    <!-- GTM noscript should be the very first thing inside body -->
     <noscript>
       <iframe
         src="https://www.googletagmanager.com/ns.html?id=GTM-NHGXP3BC"
@@ -75,10 +80,14 @@
       ></iframe>
     </noscript>
 
-    <!-- ✅ Move Facebook Pixel noscript inside <body> -->
+    <!-- Meta Pixel noscript -->
     <noscript>
-      <img height="1" width="1" style="display: none"
-      src="https://www.facebook.com/tr?id=1206239644256559&ev=PageView&noscript=1"/>
+      <img
+        height="1"
+        width="1"
+        style="display: none"
+        src="https://www.facebook.com/tr?id=1206239644256559&ev=PageView&noscript=1"
+      />
     </noscript>
 
     <div id="root"></div>
