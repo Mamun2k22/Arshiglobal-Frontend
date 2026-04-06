@@ -142,33 +142,37 @@ export default function NewFooter() {
               </a>
             </div>
 
-            {/* Col 2: Quick Links */}
-            <FooterCol
-              title="Quick Links"
-              links={[
-                { label: "Home", to: "/" },
-                { label: "Jobs", to: "/jobs" },
-                { label: "Services", to: "/services" },
-                { label: "Media", to: "/media" },
-                { label: "About", to: "/about" },
-                { label: "Contact", to: "/contact" },
-              ]}
-            />
+       {/* Col 2: Quick Links */}
+<div className="hidden md:block">
+  <FooterCol
+    title="Quick Links"
+    links={[
+      { label: "Home", to: "/" },
+      { label: "Jobs", to: "/jobs" },
+      { label: "Services", to: "/services" },
+      { label: "Media", to: "/media" },
+      { label: "About", to: "/about" },
+      { label: "Contact", to: "/contact" },
+    ]}
+  />
+</div>
 
-            {/* Col 3: Social Links */}
-            <FooterCol
-              title="Social Media"
-              links={[
-                { label: "Facebook Page", href: SOCIALS.facebookPage },
-                { label: "Facebook Group", href: SOCIALS.facebookGroup },
-                { label: "Instagram", href: SOCIALS.instagram },
-                { label: "YouTube", href: SOCIALS.youtube },
-                { label: "LinkedIn", href: SOCIALS.linkedin },
-                { label: "TikTok", href: SOCIALS.tiktok },
-                { label: "X (Twitter)", href: SOCIALS.twitterX },
-                { label: "Google Business", href: SOCIALS.googleBusiness },
-              ]}
-            />
+{/* Col 3: Social Links */}
+<div className="hidden md:block">
+  <FooterCol
+    title="Social Media"
+    links={[
+      { label: "Facebook Page", href: SOCIALS.facebookPage },
+      { label: "Facebook Group", href: SOCIALS.facebookGroup },
+      { label: "Instagram", href: SOCIALS.instagram },
+      { label: "YouTube", href: SOCIALS.youtube },
+      { label: "LinkedIn", href: SOCIALS.linkedin },
+      { label: "TikTok", href: SOCIALS.tiktok },
+      { label: "X (Twitter)", href: SOCIALS.twitterX },
+      { label: "Google Business", href: SOCIALS.googleBusiness },
+    ]}
+  />
+</div>
 
             {/* Col 4: Follow / Extra */}
             <div>
@@ -190,7 +194,7 @@ export default function NewFooter() {
                 <SocialBtn Icon={FaWhatsapp} href={SOCIALS.whatsapp} label="WhatsApp" />
               </div>
 
-              <div className="mt-6 rounded-2xl bg-white/10 p-4">
+              <div className="mt-6 rounded-2xl bg-white/10 p-4 hidden lg:block">
                 <div className="text-sm font-extrabold">Need help fast?</div>
                 <div className="mt-1 text-sm text-white/80">
                   Message us on WhatsApp and our team will respond quickly.
@@ -203,7 +207,7 @@ export default function NewFooter() {
           <div className="mt-10 h-px w-full bg-white/10" />
 
           {/* Bottom Bar */}
-          <div className="mt-6 flex flex-col items-center gap-4 sm:flex-row sm:justify-between">
+          <div className="mt-0 md:mt-6 flex flex-col items-center gap-4 sm:flex-row sm:justify-between">
          <p className="text-sm text-white/70">
   © 2026 Arshi Global. All Rights Reserved.
 </p>

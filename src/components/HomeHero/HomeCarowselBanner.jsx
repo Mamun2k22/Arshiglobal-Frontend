@@ -1,5 +1,9 @@
 import React, { useEffect, useMemo, useRef, useState } from "react";
 import Slider from "react-slick";
+import { FaWhatsapp, FaArrowRight } from "react-icons/fa";
+import { MdOutlineVerified, MdTravelExplore } from "react-icons/md";
+import { PiStudentBold } from "react-icons/pi";
+import { BsBriefcaseFill } from "react-icons/bs";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
@@ -7,9 +11,8 @@ export default function HomeCarowselBanner() {
   const [slides, setSlides] = useState([]);
   const [active, setActive] = useState(0);
 
-  // ✅ first fast, then slow
-  const FIRST_SPEED = 2800;
-  const NORMAL_SPEED = 6000;
+  const FIRST_SPEED = 3200;
+  const NORMAL_SPEED = 6500;
 
   const [autoMs, setAutoMs] = useState(FIRST_SPEED);
   const [switched, setSwitched] = useState(false);
@@ -30,7 +33,10 @@ export default function HomeCarowselBanner() {
           img: b.imageUrl?.startsWith("http")
             ? b.imageUrl
             : `${API_BASE}${b.imageUrl.startsWith("/") ? "" : "/"}${b.imageUrl}`,
-          title: b.title || "",
+          title: b.title || "Your Trusted Gateway to Europe",
+          subtitle:
+            b.subtitle ||
+            "Tour | Study | Work Visa with Legal & Professional Guidance",
         }));
 
         setSlides(mapped);
@@ -39,20 +45,25 @@ export default function HomeCarowselBanner() {
         setSlides([
           {
             id: 1,
-            img: "https://www.tahitianvacations.com/wp-content/uploads/2016/08/islands_hero-1.jpg",
-            title: "Tahitian Paradise",
+            img: "https://images.unsplash.com/photo-1491557345352-5929e343eb89?auto=format&fit=crop&w=1600&q=80",
+            title: "Your Trusted Gateway to Europe",
+            subtitle:
+              "Tour | Study | Work Visa with Legal & Professional Guidance",
           },
           {
             id: 2,
-            img: "https://www.ibookgetway.com/Content/client-UI/IBook/images/img1.jpg",
-            title: "Luxury Travel",
+            img: "https://images.unsplash.com/photo-1502602898657-3e91760cbb34?auto=format&fit=crop&w=1600&q=80",
+            title: "Study in Europe with Expert Guidance",
+            subtitle:
+              "Get proper consultation, document support and visa assistance for your future.",
           },
           {
             id: 3,
-            img: "https://www.ibookgetway.com/Content/client-UI/IBook/images/img3.jpg",
-            title: "Exotic Destinations",
+            img: "https://images.unsplash.com/photo-1511739001486-6bfe10ce785f?auto=format&fit=crop&w=1600&q=80",
+            title: "Work Permit & Immigration Support",
+            subtitle:
+              "Professional and legal support for your Europe work permit journey.",
           },
-  
         ]);
       }
     };
@@ -60,47 +71,36 @@ export default function HomeCarowselBanner() {
     fetchBanners();
   }, [API_BASE]);
 
-  const displaySlides =
-    slides.length > 0
-      ? slides
-      : [
-          {
-            id: 1,
-            img: "https://www.tahitianvacations.com/wp-content/uploads/2016/08/islands_hero-1.jpg",
-            title: "Tahitian Paradise",
-          },
-          {
-            id: 2,
-            img: "https://www.ibookgetway.com/Content/client-UI/IBook/images/img1.jpg",
-            title: "Luxury Travel",
-          },
-          {
-            id: 3,
-            img: "https://www.ibookgetway.com/Content/client-UI/IBook/images/img3.jpg",
-            title: "Exotic Destinations",
-          },
-          {
-            id: 4,
-            img: "https://www.ibookgetway.com/Content/client-UI/IBook/images/bgimg-two.jpg",
-            title: "Beach Paradise",
-          },
-        ];
-
-  const transitionSpeed = 650;
+  const displaySlides = slides.length
+    ? slides
+    : [
+        {
+          id: 1,
+          img: "https://images.unsplash.com/photo-1491557345352-5929e343eb89?auto=format&fit=crop&w=1600&q=80",
+          title: "Your Trusted Gateway to Europe",
+          subtitle:
+            "Tour | Study | Work Visa with Legal & Professional Guidance",
+        },
+        {
+          id: 2,
+          img: "https://images.unsplash.com/photo-1502602898657-3e91760cbb34?auto=format&fit=crop&w=1600&q=80",
+          title: "Study in Europe with Expert Guidance",
+          subtitle:
+            "Get proper consultation, document support and visa assistance for your future.",
+        },
+      ];
 
   const settings = useMemo(
     () => ({
       dots: true,
       infinite: true,
-      speed: transitionSpeed,
+      speed: 700,
       fade: true,
       autoplay: true,
-      autoplaySpeed: autoMs, // ✅ dynamic
+      autoplaySpeed: autoMs,
       pauseOnHover: false,
       slidesToShow: 1,
       slidesToScroll: 1,
-
-      // ✅ after first change => switch to normal slower speed
       beforeChange: (_, next) => {
         setActive(next);
 
@@ -108,8 +108,6 @@ export default function HomeCarowselBanner() {
           setSwitched(true);
           setAutoMs(NORMAL_SPEED);
 
-          // react-slick autoplay speed change apply reliably:
-          // pause + play after state update
           setTimeout(() => {
             if (sliderRef.current) {
               sliderRef.current.slickPause();
@@ -118,95 +116,212 @@ export default function HomeCarowselBanner() {
           }, 0);
         }
       },
-
       appendDots: (dots) => (
-        <div className="absolute bottom-6 w-full z-30">
-          <ul className="flex justify-center gap-3 m-0 p-0">{dots}</ul>
+        <div className="absolute bottom-4 sm:bottom-5 md:bottom-7 left-0 w-full z-30">
+          <ul className="flex justify-center gap-2 sm:gap-3 m-0 p-0">{dots}</ul>
         </div>
       ),
       customPaging: () => (
-        <div className="w-2.5 h-2.5 md:w-3 md:h-3 rounded-full bg-white/50 hover:bg-white/90 transition-all duration-300 cursor-pointer" />
+        <div className="w-2 h-2 sm:w-2.5 md:w-3 md:h-3 rounded-full bg-white/50 hover:bg-white transition-all duration-300 cursor-pointer" />
       ),
     }),
     [autoMs, switched]
   );
 
+  const currentSlide = displaySlides[active] || displaySlides[0];
+
   return (
-    <div
+    <section
       className="
         relative w-full overflow-hidden
-        h-screen
-        [&_.slick-slider]:h-full 
-        [&_.slick-list]:h-full 
+        min-h-[80vh] sm:min-h-[85vh] md:min-h-screen
+        [&_.slick-slider]:h-full
+        [&_.slick-list]:h-full
         [&_.slick-track]:h-full
         [&_.slick-slide>div]:h-full
       "
     >
-      {/* Overlay */}
-      <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-black/30 z-10 pointer-events-none" />
+      {/* Background overlay - improved for mobile readability */}
+      <div className="absolute inset-0 bg-gradient-to-r from-[#062b45]/95 via-[#062b45]/70 to-black/50 z-10 pointer-events-none" />
+      <div className="absolute inset-0 bg-black/20 z-10 pointer-events-none" />
 
-      {/* ✅ Progress bar */}
-      <div className="absolute top-0 left-0 right-0 z-30 px-6 pt-4">
-        <div className="h-[3px] w-full bg-white/15 rounded-full overflow-hidden">
+      {/* Top progress bar - responsive padding */}
+      <div className="absolute top-0 left-0 right-0 z-30 px-3 sm:px-4 md:px-8 pt-3 sm:pt-4">
+        <div className="h-[2px] sm:h-[3px] w-full bg-white/15 rounded-full overflow-hidden">
           <div
-            key={`${active}-${autoMs}`} // re-trigger when speed changes too
-            className="h-full bg-white/85 rounded-full animate-progress"
+            key={`${active}-${autoMs}`}
+            className="h-full bg-[#f4b400] rounded-full animate-progress"
             style={{ animationDuration: `${autoMs}ms` }}
           />
         </div>
       </div>
 
-      {/* Center Text */}
-      <div className="absolute inset-0 flex flex-col items-center justify-center text-white z-20 px-4 pointer-events-none">
-        <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold tracking-widest drop-shadow-2xl">
-          TRAVEL
-        </h1>
-        <p className="mt-4 text-lg md:text-2xl font-light text-center drop-shadow-xl">
-          Book Flights, Hotels and Holiday Packages
-        </p>
+      {/* Content - fully responsive typography and spacing */}
+      <div className="absolute inset-0 z-20 flex items-center mt-6">
+        <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="max-w-3xl text-white pt-2 md:pt-4">
+            {/* Badge - responsive text size */}
+            <div className="inline-flex items-center gap-1.5 sm:gap-2 rounded-full border border-white/20 bg-white/10 backdrop-blur-sm px-3 sm:px-4 py-1.5 sm:py-2 text-[11px] sm:text-xs md:text-sm font-medium mb-4 sm:mb-5">
+              <MdOutlineVerified className="text-[#f4b400] text-xs sm:text-sm" />
+              Professional & Legal Guidance for Europe
+            </div>
+
+            {/* Title - fluid typography using clamp */}
+            <h1 className="text-2xl sm:text-4xl md:text-5xl lg:text-7xl font-bold leading-tight tracking-tight drop-shadow-xl">
+              {currentSlide.title}
+            </h1>
+
+            {/* Subtitle */}
+            <p className="mt-3 sm:mt-4 md:mt-5 text-sm sm:text-base md:text-xl text-white/90 max-w-2xl leading-relaxed">
+              {currentSlide.subtitle}
+            </p>
+
+            {/* Service badges - horizontal scroll on very small screens? No, wrap with gap */}
+            <div className="mt-5 sm:mt-6 flex flex-wrap gap-2 sm:gap-3 text-xs sm:text-sm md:text-base">
+              <div className="inline-flex items-center gap-1.5 sm:gap-2 rounded-full bg-white/10 backdrop-blur-sm border border-white/10 px-3 sm:px-4 py-1.5 sm:py-2">
+                <MdTravelExplore className="text-[#f4b400] text-sm sm:text-base" />
+                Europe Tour
+              </div>
+              <div className="inline-flex items-center gap-1.5 sm:gap-2 rounded-full bg-white/10 backdrop-blur-sm border border-white/10 px-3 sm:px-4 py-1.5 sm:py-2">
+                <PiStudentBold className="text-[#f4b400] text-sm sm:text-base" />
+                Study Visa
+              </div>
+              <div className="inline-flex items-center gap-1.5 sm:gap-2 rounded-full bg-white/10 backdrop-blur-sm border border-white/10 px-3 sm:px-4 py-1.5 sm:py-2">
+                <BsBriefcaseFill className="text-[#f4b400] text-sm sm:text-base" />
+                Work Permit
+              </div>
+            </div>
+
+            <div className="mt-6 sm:mt-8 flex flex-col sm:flex-row gap-3 sm:gap-4">
+  
+  {/* Mobile only - 1 CTA */}
+  <a
+    href="/contact"
+    className="sm:hidden inline-flex items-center justify-center rounded-xl bg-[#f4b400] px-5 py-3 font-semibold text-sm text-[#0b2239]"
+  >
+    Apply Now
+  </a>
+
+  {/* Desktop CTA */}
+  <a
+    href="/contact"
+    className="hidden sm:inline-flex items-center justify-center gap-2 rounded-xl bg-[#f4b400] px-6 py-3.5 font-semibold text-sm"
+  >
+    Apply Now <FaArrowRight />
+  </a>
+
+  <a
+    href="https://wa.me/8801316889944"
+    target="_blank"
+    className="hidden sm:inline-flex items-center justify-center gap-2 rounded-xl border border-white/40 px-6 py-3.5 font-semibold text-sm"
+  >
+    <FaWhatsapp /> Free Consultation
+  </a>
+</div>
+
+            {/* Trust info - responsive grid, hidden on mobile, visible on md+ */}
+            <div className="hidden md:grid mt-8 grid-cols-2 sm:grid-cols-3 gap-3 sm:gap-4 max-w-2xl">
+              <div className="rounded-2xl bg-white/10 border border-white/10 backdrop-blur-md px-3 sm:px-4 py-3 sm:py-4">
+                <p className="text-xl sm:text-2xl md:text-3xl font-bold text-[#f4b400]">
+                  100+
+                </p>
+                <p className="text-xs sm:text-sm text-white/85 mt-1">
+                  Visa Guidance Cases
+                </p>
+              </div>
+
+              <div className="rounded-2xl bg-white/10 border border-white/10 backdrop-blur-md px-3 sm:px-4 py-3 sm:py-4">
+                <p className="text-xl sm:text-2xl md:text-3xl font-bold text-[#f4b400]">
+                  Legal
+                </p>
+                <p className="text-xs sm:text-sm text-white/85 mt-1">
+                  Professional Support
+                </p>
+              </div>
+
+              <div className="rounded-2xl bg-white/10 border border-white/10 backdrop-blur-md px-3 sm:px-4 py-3 sm:py-4 col-span-2 sm:col-span-1">
+                <p className="text-xl sm:text-2xl md:text-3xl font-bold text-[#f4b400]">
+                  Dhaka
+                </p>
+                <p className="text-xs sm:text-sm text-white/85 mt-1">
+                  Uttara Office Support
+                </p>
+              </div>
+            </div>
+
+            {/* Mobile-only trust stats - simplified version for small screens */}
+            <div className="grid grid-cols-3 gap-2 mt-6 md:hidden">
+              <div className="rounded-xl bg-white/10 backdrop-blur-sm border border-white/10 px-2 py-2 text-center">
+                <p className="text-base font-bold text-[#f4b400]">100+</p>
+                <p className="text-[10px] text-white/80">Cases</p>
+              </div>
+              <div className="rounded-xl bg-white/10 backdrop-blur-sm border border-white/10 px-2 py-2 text-center">
+                <p className="text-base font-bold text-[#f4b400]">Legal</p>
+                <p className="text-[10px] text-white/80">Support</p>
+              </div>
+              <div className="rounded-xl bg-white/10 backdrop-blur-sm border border-white/10 px-2 py-2 text-center">
+                <p className="text-base font-bold text-[#f4b400]">Dhaka</p>
+                <p className="text-[10px] text-white/80">Office</p>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
 
+      {/* Slides with mobile-optimized image behavior */}
       <Slider ref={sliderRef} {...settings}>
         {displaySlides.map((s, i) => (
           <div key={s.id} className="h-full">
             <img
               src={s.img}
               alt={s.title || `Banner ${i + 1}`}
-              className="
-                w-full h-full
-                object-cover
-                scale-125
-                transition-transform duration-[9000ms]
-              "
-              style={{
-                objectPosition: "50% 85%",
-              }}
+              className="w-full h-[80vh] md:h-full object-cover scale-[1.06] sm:scale-[1.08] transition-transform duration-[7000ms]"
+              style={{ objectPosition: "center" }}
+              loading="eager"
             />
           </div>
         ))}
       </Slider>
 
+      {/* Bottom subtle fade - adjusted opacity for better visibility */}
+      <div className="absolute bottom-0 left-0 right-0 h-20 sm:h-28 bg-gradient-to-t from-[#062b45] to-transparent z-20 pointer-events-none opacity-30 sm:opacity-20" />
+
       <style jsx>{`
         @keyframes progress {
-          from { transform: scaleX(0); }
-          to { transform: scaleX(1); }
+          from {
+            transform: scaleX(0);
+          }
+          to {
+            transform: scaleX(1);
+          }
         }
+
         .animate-progress {
           transform-origin: left;
           animation-name: progress;
           animation-timing-function: linear;
           animation-fill-mode: forwards;
         }
+
         :global(.slick-dots li button:before) {
           display: none;
         }
+
+        /* Improve dot visibility on mobile */
+        :global(.slick-dots li) {
+          width: auto !important;
+          margin: 0 4px !important;
+        }
+
+        @media (max-width: 640px) {
+          :global(.slick-dots li) {
+            margin: 0 3px !important;
+          }
+        }
       `}</style>
-    </div>
+    </section>
   );
 }
-
-
-
 
 
 

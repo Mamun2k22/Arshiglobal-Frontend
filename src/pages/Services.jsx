@@ -174,7 +174,7 @@ export default function Services() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8 }}
-              className="text-5xl md:text-7xl font-black mb-4"
+              className="text-4xl md:text-7xl font-black mb-4"
             >
               <span className="bg-gradient-to-r from-blue-300 via-purple-300 to-pink-300 bg-clip-text text-transparent">
                 Clear guidance, documentation, and end-to-end support

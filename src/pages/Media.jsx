@@ -256,7 +256,7 @@ export default function Media() {
             >
               <span className="flex items-center gap-2">
                 <MdCollections />
-                All Media
+                All
               </span>
             </button>
             <button
@@ -505,7 +505,7 @@ export default function Media() {
           )}
 
           {/* Social Media Links */}
-          <motion.div
+          {/* <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.6 }}
@@ -528,7 +528,7 @@ export default function Media() {
                 </motion.a>
               ))}
             </div>
-          </motion.div>
+          </motion.div> */}
         </div>
       </section>
 

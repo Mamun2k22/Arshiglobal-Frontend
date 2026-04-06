@@ -109,7 +109,7 @@ export default function ServiceDetails() {
             </Card>
 
             {/* Work process block (nice UX even if static) */}
-            <Card>
+            {/* <Card>
               <div className="p-6 md:p-8">
                 <h3 className="text-lg font-bold">How it works</h3>
                 <p className="mt-2 text-slate-600">
@@ -129,7 +129,7 @@ export default function ServiceDetails() {
                   ))}
                 </div>
               </div>
-            </Card>
+            </Card> */}
 
             {/* CTA */}
             <Card className="bg-emerald-50 border-emerald-100">
@@ -172,7 +172,7 @@ export default function ServiceDetails() {
                     className="w-full inline-flex justify-center rounded-xl border px-4 py-3 font-semibold hover:bg-slate-50"
                     onClick={(e) => e.preventDefault()}
                   >
-                    WhatsApp (set in settings)
+                    WhatsApp
                   </a>
 
                   <Link

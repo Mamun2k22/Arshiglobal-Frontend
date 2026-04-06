@@ -9,23 +9,23 @@ export default function WhyChooseUsSection() {
   const GIRL =
     "https://dtora.wpengine.com/wp-content/uploads/2019/04/why-us-img-new-540x718.png";
 
-  const features = [
-    {
-      icon: HiOutlineGlobeAlt,
-      title: "All Around the World Tours",
-      desc: "Dummy text ever since the 1500s, when an unknown printer took. A galley of type and scrambled it to make a type.",
-    },
-    {
-      icon: MdOutlineLuggage,
-      title: "Private & Customized Tours",
-      desc: "Dummy text ever since the 1500s, when an unknown printer took. A galley of type and scrambled it to make a type.",
-    },
-    {
-      icon: FaPassport,
-      title: "Immigration & Passport Help",
-      desc: "Dummy text ever since the 1500s, when an unknown printer took. A galley of type and scrambled it to make a type.",
-    },
-  ];
+const features = [
+  {
+    icon: HiOutlineGlobeAlt,
+    title: "Trusted Europe Visa Guidance",
+    desc: "We provide clear and professional guidance for Europe tour, study and work visa processes, so you can move forward with more confidence.",
+  },
+  {
+    icon: MdOutlineLuggage,
+    title: "Personalized Support for Every Client",
+    desc: "From consultation to document preparation, we offer step-by-step assistance based on your goals, profile and destination requirements.",
+  },
+  {
+    icon: FaPassport,
+    title: "Legal Documentation & Application Help",
+    desc: "Our team helps you understand requirements, prepare documents properly and avoid common mistakes during your application process.",
+  },
+];
 
   return (
     <section className="relative w-full overflow-hidden">
@@ -33,7 +33,7 @@ export default function WhyChooseUsSection() {
       <div className="absolute inset-0">
         <img src={BG} alt="" className="w-full h-full object-cover" />
         {/* teal overlay like screenshot */}
-        <div className="absolute inset-0 bg-[#46c7d2]/80" />
+        <div className="absolute inset-0 bg-[#0B5C86]/85" />
       </div>
 
       <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-14 lg:py-20">
