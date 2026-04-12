@@ -117,7 +117,22 @@ export default function ServiceDetails() {
               </div>
             </Card>
 
-
+            <Card className="border-emerald-100 bg-emerald-50">
+              <div className="flex flex-col gap-4 p-5 sm:p-6 md:flex-row md:items-center md:justify-between md:p-8">
+                <div>
+                  <div className="text-lg font-bold">Ready to get started?</div>
+                  <div className="mt-1 text-sm text-slate-700 sm:text-base">
+                    Contact us and we’ll guide you with the next steps.
+                  </div>
+                </div>
+                <Link
+                  to="/contact"
+                  className="w-full rounded-xl bg-emerald-600 px-5 py-3 text-center font-semibold text-white hover:bg-emerald-700 md:w-auto"
+                >
+                  Contact now
+                </Link>
+              </div>
+            </Card>
           </div>
 
           {/* Sidebar */}
@@ -137,13 +152,14 @@ export default function ServiceDetails() {
                     Contact form
                   </Link>
 
-                  <a
-                    href="#"
-                    className="inline-flex w-full justify-center rounded-xl border px-4 py-3 font-semibold hover:bg-slate-50"
-                    onClick={(e) => e.preventDefault()}
-                  >
-                    WhatsApp
-                  </a>
+               <a
+  href="https://wa.me/8801316889944"
+  target="_blank"
+  rel="noopener noreferrer"
+  className="inline-flex w-full justify-center rounded-xl border px-4 py-3 font-semibold hover:bg-slate-50"
+>
+  WhatsApp
+</a>
 
                   <Link
                     to="/services"
