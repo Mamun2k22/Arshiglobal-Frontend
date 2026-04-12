@@ -7,6 +7,7 @@ import {
   MdBusinessCenter,
   MdHomeWork,
 } from "react-icons/md";
+import { Link } from "react-router-dom";
 
 const Check = () => (
   <span className="inline-flex h-4 w-4 items-center justify-center rounded-full bg-emerald-500">
@@ -47,9 +48,11 @@ const Card = ({ icon, bg, color, title, desc, bullets }) => (
       ))}
     </ul>
 
+   <Link to={"/services"}>
     <button className="mt-6 inline-flex items-center gap-2 text-sm font-semibold text-sky-600 hover:text-sky-700">
       Learn More →
     </button>
+  </Link>
   </div>
 );
 

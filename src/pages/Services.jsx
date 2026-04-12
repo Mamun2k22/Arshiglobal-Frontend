@@ -140,16 +140,11 @@ export default function Services() {
             }}
           />
           {/* Dark overlay for better text readability - like Contact page */}
-          <div className="absolute inset-0 bg-gradient-to-r from-blue-900/90 via-purple-900/80 to-blue-900/90"></div>
-          
-          {/* Animated overlay - like Contact page */}
-          <motion.div
-            animate={{
-              opacity: [0.3, 0.5, 0.3],
-            }}
-            transition={{ duration: 5, repeat: Infinity }}
-            className="absolute inset-0  bg-gradient-to-br from-slate-900 via-slate-800 to-blue-900"
-          />
+       <div className="absolute inset-0 bg-gradient-to-r from-blue-900/60 via-purple-900/50 to-blue-900/60"></div>
+
+<motion.div
+  className="absolute inset-0 bg-gradient-to-br from-slate-900/40 via-slate-800/30 to-blue-900/40"
+/>
         </div>
 
         {/* Content */}
@@ -400,10 +395,10 @@ export default function Services() {
             transition={{ delay: 0.5 }}
             className="mt-16 relative"
           >
-            <div className="absolute inset-0 bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 rounded-3xl blur-2xl opacity-30" />
+            {/* <div className="absolute inset-0 bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 rounded-3xl blur-2xl opacity-30" />
             <div className="relative bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 rounded-3xl p-10 text-white overflow-hidden">
               
-              {/* Background Pattern */}
+           
               <div className="absolute inset-0 opacity-10">
                 <div className="absolute inset-0" style={{ 
                   backgroundImage: 'radial-gradient(circle at 2px 2px, white 1px, transparent 0)',
@@ -434,7 +429,7 @@ export default function Services() {
                   </div>
                 </div>
               </div>
-            </div>
+            </div> */}
           </motion.div>
         </div>
       </section>

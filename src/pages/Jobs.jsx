@@ -84,7 +84,7 @@ export default function Jobs() {
             }}
           />
           {/* Dark overlay for better text readability */}
-          <div className="absolute inset-0 bg-gradient-to-r from-slate-900/95 via-slate-800/95 to-blue-900/95"></div>
+        <div className="absolute inset-0 bg-gradient-to-r from-slate-900/70 via-slate-800/60 to-blue-900/70"></div>
         </div>
 
         {/* Animated Background Elements (kept for visual appeal) */}
