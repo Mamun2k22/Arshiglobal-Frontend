@@ -116,7 +116,7 @@ export default function ServiceDetails() {
                 </p>
               </div>
             </Card>
-
+{/* 
             <Card className="border-emerald-100 bg-emerald-50">
               <div className="flex flex-col gap-4 p-5 sm:p-6 md:flex-row md:items-center md:justify-between md:p-8">
                 <div>
@@ -132,7 +132,7 @@ export default function ServiceDetails() {
                   Contact now
                 </Link>
               </div>
-            </Card>
+            </Card> */}
           </div>
 
           {/* Sidebar */}
@@ -156,7 +156,7 @@ export default function ServiceDetails() {
   href="https://wa.me/8801316889944"
   target="_blank"
   rel="noopener noreferrer"
-  className="inline-flex w-full justify-center rounded-xl border px-4 py-3 font-semibold hover:bg-slate-50"
+  className="inline-flex w-full justify-center rounded-xl border px-4 py-3 font-semibold bg-emerald-600 text-white hover:bg-emerald-700 "
 >
   WhatsApp
 </a>
