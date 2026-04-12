@@ -8,8 +8,7 @@ import { RiFacebookFill, RiYoutubeFill, RiInstagramFill } from "react-icons/ri";
 import { FaLinkedinIn, FaTiktok, FaXTwitter, FaWhatsapp, FaGoogle } from "react-icons/fa6";
 
 export default function NewFooter() {
-
-  const { settings } = useSiteSettings(); // ✅ first line inside component
+  const { settings } = useSiteSettings();
 
   const company = settings?.siteName || "Arshi Global";
   const phoneDisplay = settings?.phone || "+880 1316-889944";
@@ -43,35 +42,47 @@ export default function NewFooter() {
     googleBusiness: "https://share.google/JLjTlGtuofuMTEu9k",
     whatsapp: whatsappLink,
   };
+
   return (
     <footer className="relative overflow-hidden text-white font-poppins text-[14px]">
-      {/* Decorative BG */}
+      {/* Background Image */}
       <div
         aria-hidden
-        className="pointer-events-none absolute inset-0 z-0
-        bg-[radial-gradient(120%_80%_at_0%_0%,#0b3b69_0%,#0a2f59_45%,#0a2b56_60%,#0a2b56_100%)]"
+        className="pointer-events-none absolute inset-0 z-0 bg-cover bg-center"
+        style={{
+          backgroundImage: "url('https://www.eduvancebd.com/images/footer.jpg')",
+        }}
       />
+
+      {/* Dark overlay to reduce brightness */}
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-0 z-0 bg-black/80"
+      />
+
+      {/* Soft decorative glow - reduced brightness */}
       <span
         aria-hidden
         className="pointer-events-none absolute -left-24 -top-24 z-0 h-[520px] w-[520px] rounded-full
-        bg-[radial-gradient(closest-side,rgba(255,255,255,.06),transparent_70%)]"
+        bg-[radial-gradient(closest-side,rgba(255,255,255,.02),transparent_70%)]"
       />
       <span
         aria-hidden
         className="pointer-events-none absolute -right-36 -top-40 z-0 h-[620px] w-[620px] rounded-full
-        bg-[radial-gradient(closest-side,rgba(255,255,255,.06),transparent_72%)]"
+        bg-[radial-gradient(closest-side,rgba(255,255,255,.02),transparent_72%)]"
       />
+
+      {/* Texture - reduced opacity */}
       <span
         aria-hidden
         className="pointer-events-none absolute inset-0 z-0
-        bg-[repeating-linear-gradient(130deg,transparent_0,transparent_12px,rgba(255,255,255,.04)_13px,transparent_14px)] opacity-40"
+        bg-[repeating-linear-gradient(130deg,transparent_0,transparent_12px,rgba(255,255,255,.04)_13px,transparent_14px)] opacity-20"
       />
 
       {/* Content */}
       <div className="relative z-10">
         <div className="mx-auto max-w-7xl px-4 py-10 md:py-12">
-          {/* TOP GRID */}
-          <div className="grid gap-8 lg:grid-cols-4 ">
+          <div className="grid gap-8 lg:grid-cols-4">
             {/* Col 1: brand + contacts */}
             <div>
               <div className="flex items-center gap-3">
@@ -87,11 +98,11 @@ export default function NewFooter() {
                 </div>
               </div>
 
-<p className="mt-3 max-w-md text-sm text-white/80 leading-relaxed">
-  {settings?.footerText?.trim()
-    ? settings.footerText
-    : "We provide trusted support for visa guidance, overseas job processing, documentation, and travel assistance — with transparent steps and fast communication."}
-</p>
+              <p className="mt-3 max-w-md text-sm text-white leading-relaxed">
+                {settings?.footerText?.trim()
+                  ? settings.footerText
+                  : "We provide trusted support for visa guidance, overseas job processing, documentation, and travel assistance — with transparent steps and fast communication."}
+              </p>
 
               <ul className="mt-5 space-y-3 text-sm">
                 <li className="flex items-center gap-3">
@@ -142,37 +153,37 @@ export default function NewFooter() {
               </a>
             </div>
 
-       {/* Col 2: Quick Links */}
-<div className="hidden md:block">
-  <FooterCol
-    title="Quick Links"
-    links={[
-      { label: "Home", to: "/" },
-      { label: "Jobs", to: "/jobs" },
-      { label: "Services", to: "/services" },
-      { label: "Media", to: "/media" },
-      { label: "About", to: "/about" },
-      { label: "Contact", to: "/contact" },
-    ]}
-  />
-</div>
+            {/* Col 2: Quick Links */}
+            <div className="hidden md:block">
+              <FooterCol
+                title="Quick Links"
+                links={[
+                  { label: "Home", to: "/" },
+                  { label: "Jobs", to: "/jobs" },
+                  { label: "Services", to: "/services" },
+                  { label: "Media", to: "/media" },
+                  { label: "About", to: "/about" },
+                  { label: "Contact", to: "/contact" },
+                ]}
+              />
+            </div>
 
-{/* Col 3: Social Links */}
-<div className="hidden md:block">
-  <FooterCol
-    title="Social Media"
-    links={[
-      { label: "Facebook Page", href: SOCIALS.facebookPage },
-      { label: "Facebook Group", href: SOCIALS.facebookGroup },
-      { label: "Instagram", href: SOCIALS.instagram },
-      { label: "YouTube", href: SOCIALS.youtube },
-      { label: "LinkedIn", href: SOCIALS.linkedin },
-      { label: "TikTok", href: SOCIALS.tiktok },
-      { label: "X (Twitter)", href: SOCIALS.twitterX },
-      { label: "Google Business", href: SOCIALS.googleBusiness },
-    ]}
-  />
-</div>
+            {/* Col 3: Social Links */}
+            <div className="hidden md:block">
+              <FooterCol
+                title="Social Media"
+                links={[
+                  { label: "Facebook Page", href: SOCIALS.facebookPage },
+                  { label: "Facebook Group", href: SOCIALS.facebookGroup },
+                  { label: "Instagram", href: SOCIALS.instagram },
+                  { label: "YouTube", href: SOCIALS.youtube },
+                  { label: "LinkedIn", href: SOCIALS.linkedin },
+                  { label: "TikTok", href: SOCIALS.tiktok },
+                  { label: "X (Twitter)", href: SOCIALS.twitterX },
+                  { label: "Google Business", href: SOCIALS.googleBusiness },
+                ]}
+              />
+            </div>
 
             {/* Col 4: Follow / Extra */}
             <div>
@@ -208,9 +219,9 @@ export default function NewFooter() {
 
           {/* Bottom Bar */}
           <div className="mt-0 md:mt-6 flex flex-col items-center gap-4 sm:flex-row sm:justify-between">
-         <p className="text-sm text-white/70">
-  © 2026 Arshi Global. All Rights Reserved.
-</p>
+            <p className="text-sm text-white/70">
+              © 2026 Arshi Global. All Rights Reserved.
+            </p>
             <a
               href="#top"
               className="group inline-flex items-center gap-2 rounded-full bg-sky-500/20 px-3 py-2 text-sky-200 hover:bg-sky-500/25"
@@ -232,7 +243,6 @@ export default function NewFooter() {
 }
 
 function FooterCol({ title, links = [] }) {
-  
   return (
     <div>
       <h4 className="text-[18px] font-semibold">{title}</h4>
