@@ -79,7 +79,7 @@ export default function ServicesSection() {
         </p>
 
         {/* Cards Grid */}
-        <div className="mt-14 grid grid-cols-1 gap-7 sm:grid-cols-2 lg:grid-cols-3">
+        {/* <div className="mt-14 grid grid-cols-1 gap-7 sm:grid-cols-2 lg:grid-cols-3">
           <Card
             icon={<MdSchool />}
             bg="bg-sky-100"
@@ -133,7 +133,7 @@ export default function ServicesSection() {
             desc="Explore the world with hassle-free tourist visas and visitor permits."
             bullets={["Tourist Visa", "Super Visa", "Transit Visa"]}
           />
-        </div>
+        </div> */}
       </div>
     </section>
   );
