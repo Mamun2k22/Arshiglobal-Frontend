@@ -279,7 +279,7 @@ export default function Home() {
       {/* <BrowseLocations /> */}
       <TourismHero />
       {/* <FlightHotelServices /> */}
-      <ServicesSection />
+      {/* <ServicesSection /> */}
       {/* <ServicesCarouselSection services={services} /> */}
       <section className="py-16 bg-gradient-to-b from-gray-50 to-white relative overflow-hidden">
         <div className="absolute inset-0 overflow-hidden">
@@ -300,7 +300,7 @@ export default function Home() {
             viewport={{ once: true }}
             className="text-center mb-12"
           >
-            {/* <motion.div
+            <motion.div
               initial={{ scale: 0 }}
               whileInView={{ scale: 1 }}
               viewport={{ once: true }}
@@ -309,15 +309,17 @@ export default function Home() {
               <span className="px-4 py-2 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-full text-sm font-semibold shadow-lg">
                 ✦ What We Offer ✦
               </span>
-            </motion.div> */}
+            </motion.div>
 
-            {/* <h2 className="text-4xl md:text-5xl font-black mb-4">
-              <span className="bg-gradient-to-r from-blue-700 via-purple-700 to-pink-700 bg-clip-text text-transparent">
-                Services
-              </span>
-            </h2> */}
-{/* 
-            <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+         <h2 className="mt-4 text-center font-serif text-4xl font-semibold text-slate-900 sm:text-5xl">
+          Complete Immigration Solutions
+        </h2>
+           <p className="mx-auto mt-4 max-w-2xl text-center text-sm text-slate-500">
+          Comprehensive visa services tailored to your unique needs and
+          aspirations.
+        </p>
+
+            {/* <p className="text-lg text-gray-600 max-w-2xl mx-auto">
               Our core services to support your visa and job process.
             </p> */}
           </motion.div>

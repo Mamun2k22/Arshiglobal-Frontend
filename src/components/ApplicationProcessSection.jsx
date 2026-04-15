@@ -103,10 +103,10 @@ export default function ApplicationProcessSection() {
             </div>
             <span className="mt-4 text-sm text-white/70">E-Message</span>
             <a
-              href="mailto:info@giptravels.com"
+              href="mailto:arshitraveldhaka@gmail.com"
               className="mt-1 text-lg font-semibold hover:text-[#8aa4e8]"
             >
-              info@giptravels.com
+              arshitraveldhaka@gmail.com
             </a>
           </div>
 

@@ -1,20 +1,7 @@
 import React from "react";
 import { Helmet } from "react-helmet-async";
-
-import Features from "../../components/Features";
-
-import OurBrands from "../../components/OurBrands";
-
 import HeroSlider from "../../components/HomeHero/HeroSlider";
 
-import ProductCategory from "../productCategory/ProductCategory";
-import MenCollection from "../../components/ui/MenCollection";
-import WomenCollection from "../../components/ui/WomenCollection";
-import KidCollection from "../../components/ui/KidCollection";
-import FeaturesBar from "../../components/FeaturesBar";
-import AccessoriesCollection from "../../components/ui/AccessoriesCollection";
-import HomeMarqueeBar from "../../../src/components/ui/HomeMarqueeBar";
-import RecentlyViewed from "../../components/RecentlyViewed";
 
 const Home = () => {
   return (
